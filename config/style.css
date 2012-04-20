@@ -1,0 +1,396 @@
+*{
+	padding: 0;
+	margin: 0;
+	outline: none;
+}
+
+img{
+	border: none;
+}
+
+body{
+	font-family: Arial;
+	min-width: 800px;
+}
+
+.clear{
+	clear: both;
+	height: 0px;
+}
+
+#entete{
+	height: 37px;
+	background-color: #181818;
+	background-image: url(../img/bg_entete.png);
+	background-position: 0 100%;
+	background-repeat: repeat-x;
+	position: relative;
+	z-index: 4;
+}
+
+#logo_campanule{
+	position: absolute;
+	left: 1px;
+	top: 2px;
+	z-index: 5;
+}
+
+#texte_entete{
+	font-size: 16px;
+	font-style: italic;
+	color: #cbcaca;
+	text-align: right;
+	margin-right: 14px;
+	padding-top: 6px;
+}
+
+#entete_evenement{
+	height: 108px;
+	background-color: #ffffff;
+	background-image: url(../img/bg_entete_evenement.png);
+	background-position: 0 100%;
+	background-repeat: repeat-x;
+	position: relative;
+	z-index: 2;
+}
+
+#texte_entete_evenement{
+	font-size: 24px;
+	font-style: italic;
+	color: #434343;
+	text-align: right;
+	margin-right: 509px;
+	padding-top: 23px;
+}
+
+#zone_banniere{
+	width: 482px;
+	max-height: 86px;
+	overflow: hidden;
+	position: absolute;
+	top: 13px;
+	right: 7px;
+	z-index: 3;
+}
+
+#footer{
+	height: 65px;
+	background-color: transparent;
+	background-image: url(../img/bg_footer.png);
+	background-position: 0 0;
+	background-repeat: repeat-x;
+	text-align: center;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	min-width: 800px;
+}
+
+#texte_legals{
+	font-size: 14px;
+	color: #cbcbcb;
+	padding-top: 8px;
+}
+
+#texte_copyright{
+	font-size: 12px;
+	color: #353535;
+	padding-top: 6px;
+}
+
+#corps{
+	background-color: #ffffff;
+	background-image: url(../img/bg_corps.png);
+	background-position: 0 0;
+	background-repeat: repeat-x;
+	min-height: 550px;
+}
+
+#menu{
+	width: 24.99%;
+	min-width: 200px;
+	margin-top: 3px;
+	float: left;
+	background-image: url(../img/bg_menu.png);
+	background-position: 0 0;
+	background-repeat: repeat-x;
+	text-align: right;
+}
+
+.element_menu{
+	display: inline-block;
+	width: 205px;
+	height: 32px; /*44*/
+	padding-top: 12px;
+	margin-right: 8px;
+	text-align: center;
+	margin-top: 9px;
+	background-color: #f4f4f4;
+	border: 1px solid #b6b6b6;
+	border-radius: 3px;
+	font-size: 16px;
+	color: #313131;
+	text-decoration: none;
+}
+.element_menu:hover{
+	background-color: #ffffff;
+	color: #151515;
+}
+.element_menu.selectionne{
+	background-color: #ffffff;
+}
+
+#zone_contenu{
+	width: 74.99%;
+	min-width: 600px;
+	min-height: 550px;
+	float: left;
+	position: relative;
+	background-image: url(../img/bg_contenu.png);
+	background-position: 0 0;
+	background-repeat: repeat-x;
+	background-color: #ffffff;
+}
+
+#separateur_zones{
+	height: 550px;
+	width: 12px;
+	background-image: url(../img/bg_separateur_zones.png);
+	background-position: 0 100%;
+	background-repeat: repeat-x;
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+
+h2{
+	font-size: 17px;
+	text-transform: uppercase;
+	margin: 24px 0 5px 21px;
+}
+
+#liste_propositions{
+	margin-bottom: 70px;
+}
+
+.proposition{
+	margin: 19px 34px 0 26px;
+	border: 2px solid;
+	border-radius: 6px;
+	background-image: url(../img/bg_proposition.png);
+	background-position: 100% 0;
+	background-repeat: repeat-y;
+}
+
+.proposition .zone_infos_hebergement{
+	margin-right: 290px;
+}
+
+.proposition h3{
+	color: #6e6e6e;
+	font-size: 18px;
+	font-style: italic;
+	font-weight: normal;
+	margin: 5px 0 6px 9px;
+}
+
+.proposition .adresse{
+	padding: 8px;
+	margin: 2px 8px 6px 9px;
+	border-radius: 3px;
+	font-size: 14px;
+	font-weight: bold;
+	color: #ffffff;
+}
+
+.proposition .telephone, .proposition .email{
+	font-size: 14px;
+	font-weight: bold;
+	float: left;
+	margin-left: 9px;
+}
+.proposition .telephone{
+	margin-right: 33px;
+}
+
+.proposition .zone_remarques{
+	margin: 20px 0 10px 9px;
+}
+
+.proposition .zone_remarques p{
+	font-size: 14px;
+	color: #6e6e6e;
+	margin: 10px 0 5px 0;
+}
+
+.zone_reservation{
+	float: right;
+	width: 286px;
+}
+
+.textes_places{
+	text-align: right;
+	margin: 0 5px 0 5px;
+}
+
+.texte_places_prises, .texte_places_restantes{
+	font-size: 14px;
+	font-weight: bold;
+	color: #6e6e6e;
+}
+.texte_places_restantes .nb_places_restantes{
+	display: inline-block;
+	width: 40px;
+	text-align: right;
+	font-size: 38px;
+	margin-right: 3px;
+}
+.texte_places_prises .nb_places_prises{
+	display: inline-block;
+	width: 37px;
+	text-align: right;
+	margin-right: 6px;
+}
+
+.resume_invites{
+	font-size: 12px;
+	color: #6e6e6e;
+	font-style: italic;
+	margin-left: 4px;
+}
+
+.invite{
+	display: inline-block;
+	margin: 1px 0 2px 0;
+}
+
+.bouton_afficher_form_demande{
+	display: block;
+	text-align: center;
+	border-radius: 3px;
+	width: 180px;
+	height: 24px;
+	padding-top: 6px;
+	font-size: 14px;
+	font-weight: bold;
+	color: #ffffff;
+	margin: 20px 0 0 50px;
+	text-decoration: none;
+}
+
+.zone_form_demande{
+	overflow: hidden;
+}
+
+.form_demande{
+	width: 262px;
+	height: 171px;
+	margin: 10px 0 15px 8px;
+	background-color: #ffffff;
+	border: 1px solid #d6d6d6;
+	box-shadow: 3px 3px 5px #aaa;
+	text-align: right;
+	line-height: 29px;
+	/*Pour n'apparaître qu'avec le bouton JS*/
+	margin-top: -180px;
+}
+
+.form_demande h4{
+	font-size: 14px;
+	font-weight: bold;
+	color: #6e6e6e;
+	text-align: center;
+	margin-top: 6px;
+}
+
+.form_demande label{
+	font-size: 14px;
+	color: #6e6e6e;
+	margin-right: 4px;
+}
+
+.form_demande input.input_text{
+	width: 139px;
+	height: 23px;
+	border: 1px solid #606060;
+	margin-right: 8px;
+}
+
+.bouton_valider_form_demande, .bouton_valider_form_proposition{
+	width: 116px;
+	height: 25px;
+	margin-top: 10px;
+	margin-right: 70px;
+	background-image: url(../img/bg_bouton_form_demande.png);
+	background-position: 0 0;
+	background-repeat: repeat-x;
+	border: 1px solid #bfbfbf;
+	box-shadow: 0px 0px 2px #aaa;
+	font-size: 14px;
+	color: #434343;
+	cursor: pointer;
+}
+
+/* Page de proposition d'hébergement */
+
+#zone_formulaire_proposition{
+	margin: 19px 34px 70px 26px;
+	border: 2px solid;
+	border-radius: 6px;
+	line-height: 29px;
+}
+
+#zone_formulaire_proposition h3{
+	font-weight: bold;
+	color: #6e6e6e;
+	font-size: 14px;
+	margin: 5px 0 15px 25px;
+}
+
+#zone_formulaire_proposition .titre_fieldset{
+	font-size: 12px;
+	font-style: italic;
+	color: #6e6e6e;
+	margin: 15px 0 0 225px;
+}
+
+#zone_formulaire_proposition label{
+	display: inline-block;
+	width: 309px;
+	text-align: right;
+	font-size: 14px;
+	color: #6e6e6e;
+	margin-right: 3px;
+}
+#zone_formulaire_proposition label .supplement_label{
+	font-size: 11px;
+}
+
+#zone_formulaire_proposition input.input_text{
+	width: 213px;
+	height: 23px;
+	border: 1px solid #606060;
+}
+
+#zone_formulaire_proposition input#proposition_input_nb_places{
+	width: 35px;
+}
+
+#zone_formulaire_proposition .zone_textarea{
+	float: left;
+	width: 330px;
+	margin-left: 15px;
+}
+#zone_formulaire_proposition .zone_textarea label{
+	width: auto;
+}
+#zone_formulaire_proposition .zone_textarea textarea{
+	width: 323px;
+	height: 124px;
+	resize: none;
+}
+
+.bouton_valider_form_proposition{
+	margin: 10px 0 12px 294px;
+}
