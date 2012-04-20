@@ -25,7 +25,7 @@ $(document).ready(function(){
 		var adresse_renseigne = $(this).parents('form').find('input[name=localisation]').val();
 		var tel_renseigne = $(this).parents('form').find('input[name=telephone]').val();
 		var mail_renseigne = $(this).parents('form').find('input[name=email]').val();
-		
+
 		if(nom_renseigne == ''){
 			alert('Vous devez donner un nom (pseudos autorisés).');
 		}
