@@ -31,21 +31,21 @@
 }
 		</style>
 	</head>
-	
+
 	<body>
 		<div id="entete">
 			<a href="http://lacampanule.free.fr/">
 				<img id="logo_campanule" alt="La Campanule" src="img/logo_campanule.png" />
 			</a>
 			<p id="texte_entete">
-				Trouvez un hébergement pour les grands événements Folk avec l’aide de La Campanule !
+				Trouvez un hÃ©bergement pour les grands Ã©vÃ©nements Folk avec lâ€™aide de La Campanule !
 			</p>
 		</div>
 
 		<div id="entete_evenement">
 			<p id="texte_entete_evenement">
-				Trouvez votre hébergement<br />
-				chez l’habitant pour
+				Trouvez votre hÃ©bergement<br />
+				chez lâ€™habitant pour
 			</p>
 			<div id="zone_banniere">
 				<a href="http://<?php echo $tab_evenement['site_officiel']; ?>">
@@ -56,13 +56,13 @@
 
 		<div id="corps">
 			<div id="menu">
-				<a class="element_menu<?php if($element_menu_selectionne == 1){echo ' selectionne';} ?>" href="reservation.php">Liste des hébergements</a>
-				<a class="element_menu<?php if($element_menu_selectionne == 2){echo ' selectionne';} ?>" href="proposer_un_hebergement.php">Proposer un hébergement</a>
+				<a class="element_menu<?php if($element_menu_selectionne == 1){echo ' selectionne';} ?>" href="reservation.php">Liste des hÃ©bergements</a>
+				<a class="element_menu<?php if($element_menu_selectionne == 2){echo ' selectionne';} ?>" href="proposer_un_hebergement.php">Proposer un hÃ©bergement</a>
 				<?php /* PAGE A FAIRE
-				<a class="element_menu<?php if($element_menu_selectionne == 3){echo ' selectionne';} ?>" href="comment_ca_marche.php">Comment ça marche ?</a>
+				<a class="element_menu<?php if($element_menu_selectionne == 3){echo ' selectionne';} ?>" href="comment_ca_marche.php">Comment Ã§a marche ?</a>
 				*/ ?>
 			</div>
-			
+
 			<div id="zone_contenu">
 				<div id="separateur_zones">
 				</div>

@@ -1,14 +1,14 @@
-			</div>
+</div>
 			<div class="clear"></div>
 		</div>
 
 		<div id="footer">
 			<p id="texte_legals">
-				N’oubliez pas de vous mettre d’accord par téléphone. Ce système a uniquement pour but de mettre en relation hébergeurs et hébergés lors des événements folk.<br />
-				La Campanule ne garantit aucun de ces hébergements et décline toute responsabilité en cas de problème entre hôte et invité.
+				Nâ€™oubliez pas de vous mettre dâ€™accord par tÃ©lÃ©phone. Ce systÃ¨me a uniquement pour but de mettre en relation hÃ©bergeurs et hÃ©bergÃ©s lors des Ã©vÃ©nements folk.<br />
+				La Campanule ne garantit aucun de ces hÃ©bergements et dÃ©cline toute responsabilitÃ© en cas de problÃ¨me entre hÃ´te et invitÃ©.
 			</p>
 			<p id="texte_copyright">
-				Copyright 2012 La Campanule. Développement et graphisme : Ludovic Hablot et Martin Delagrèverie pour La Campanule
+				Copyright 2012 La Campanule. DÃ©veloppement et graphisme : Ludovic Hablot et Martin DelagrÃ¨verie pour La Campanule
 			</p>
 		</div>
 	</body>

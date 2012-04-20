@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr" dir="ltr">
 	<head>
-		<title>Application Hébergement Campanule : Administration de l'événement <?php echo $tab_evenement['nom']; ?></title>
+		<title>Application HÃ©bergement Campanule : Administration de l'Ã©vÃ©nement <?php echo $tab_evenement['nom']; ?></title>
 		<link href="../config/style.css" rel="stylesheet" type="text/css" />
 		<link href="admin.css" rel="stylesheet" type="text/css" />
 		<script type="text/javascript" src="../js/jquery-1.7.1.min.js"></script>
@@ -33,20 +33,20 @@
 }
 		</style>
 	</head>
-	
+
 	<body>
 		<div id="entete">
 			<a href="http://lacampanule.free.fr/">
 				<img id="logo_campanule" alt="La Campanule" src="../img/logo_campanule.png" />
 			</a>
 			<p id="texte_entete">
-				Application Hébergement Campanule : Administration de l'événement <?php echo $tab_evenement['nom']; ?>
+				Application HÃ©bergement Campanule : Administration de l'Ã©vÃ©nement <?php echo $tab_evenement['nom']; ?>
 			</p>
 		</div>
 
 		<div id="entete_evenement">
 			<p id="texte_entete_evenement">
-				Administration de l'événement
+				Administration de l'Ã©vÃ©nement
 			</p>
 			<div id="zone_banniere">
 				<a href="http://<?php echo $tab_evenement['site_officiel']; ?>">
@@ -57,11 +57,11 @@
 
 		<div id="corps">
 			<div id="menu">
-				<a class="element_menu<?php if($element_menu_selectionne == 1){echo ' selectionne';} ?>" href="liste_evenements.php">Autres événements</a>
-				<a class="element_menu<?php if($element_menu_selectionne == 2){echo ' selectionne';} ?>" href="reservation.php">Liste des hébergements</a>
-				<a class="element_menu" href="logout.php">Déconnexion</a>
+				<a class="element_menu<?php if($element_menu_selectionne == 1){echo ' selectionne';} ?>" href="liste_evenements.php">Autres Ã©vÃ©nements</a>
+				<a class="element_menu<?php if($element_menu_selectionne == 2){echo ' selectionne';} ?>" href="reservation.php">Liste des hÃ©bergements</a>
+				<a class="element_menu" href="logout.php">DÃ©connexion</a>
 			</div>
-			
+
 			<div id="zone_contenu">
 				<div id="separateur_zones">
 				</div>

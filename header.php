@@ -9,7 +9,7 @@ function get_room_left($hote_id){
 			 WHERE id_hote = '$hote_id'";
 	$result = mysql_query($query, $db_link) or die("Select invites query failed" . mysql_error());
 	$count = mysql_fetch_array($result);
-	
+
 	$query = "SELECT nb_places
 				 FROM hebergement_hotes
 				 WHERE id = '$hote_id'";
@@ -22,8 +22,8 @@ function get_room_left($hote_id){
 function insert_invite($qui, $tel, $email, $hote_id)
 {
 	global $db_link;
-	
-	if(get_room_left($hote_id)>0){	
+
+	if(get_room_left($hote_id)>0){
 		$query="INSERT INTO hebergement_invites VALUES
 		(NULL,
 		'$qui',
@@ -63,12 +63,12 @@ function insert_hote($id_evenement, $qui, $adresse, $tel, $email, $nb_places, $c
  */
 function get_tab_evenement($event_id){
 	global $db_link;
-	
+
 	$query_evenement = "SELECT * FROM hebergement_evenement WHERE id = '" . mysql_real_escape_string($event_id) . "';";
 	$res_evenement = mysql_query($query_evenement, $db_link);
 	if(!$res_evenement) return null;
 	$tab_evenement = mysql_fetch_array($res_evenement);
-	
+
 	return $tab_evenement;
 }
 
@@ -80,14 +80,14 @@ function get_tab_evenement($event_id){
 function get_invites($id, $event_id)
 {
 	global $db_link;
-	
+
 	$query="SELECT * FROM hebergement_invites WHERE id_hote=$id";
 	return mysql_query($query, $db_link);
 }
 
 //----------------------------------------------------------------------------------------------
 
-//Récupère l'id d'événement qui nous intéresse
+//RÃ©cupÃ¨re l'id d'Ã©vÃ©nement qui nous intÃ©resse
 if(isset($_GET['id_evenement'])){
 	$event_id = $_GET['id_evenement'];
 	$_SESSION['id_evenement'] = $event_id;
@@ -97,7 +97,7 @@ elseif(isset($_SESSION['id_evenement'])){
 }
 else{
 	//$event_id = null;
-	//Evenement par défaut : disons que c'est funam'bals
+	//Evenement par dÃ©faut : disons que c'est funam'bals
 	$event_id = 2;
 }
 
@@ -108,4 +108,3 @@ if(!$tab_evenement){
 	header('location: http://lacampanule.free.fr/');
 	die();
 }
-?>

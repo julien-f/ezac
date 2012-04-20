@@ -11,7 +11,7 @@ elseif(isset($_POST['login'])){
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr">
 	<head>
 		<title>
-			Connexion à l'administration
+			Connexion Ã  l'administration
 		</title>
 		<link rel="stylesheet" type="text/css" href="admin.css" />
 	</head>
@@ -28,7 +28,7 @@ elseif(isset($_POST['login'])){
 				<fieldset>
 					<input type="hidden" name="action" value="connexion" />
 					<label>
-						Identifiant : 
+						Identifiant :
 						<input type="text" name="login" />
 					</label>
 					<label>

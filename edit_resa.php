@@ -6,7 +6,7 @@ if(isset($input_action)){
 	switch($input_action){
 		case "reserve_room":
 			if($input_qui == ""){
-				print "<script type=\"text/javascript\">alert(\"Vous devez donner un nom (pseudos autorisés).\");</script>";
+				print "<script type=\"text/javascript\">alert(\"Vous devez donner un nom (pseudos autorisÃ©s).\");</script>";
 				$hote_error=true;
 			}
 			elseif($input_email == "" and $input_telephone == ""){
@@ -21,7 +21,7 @@ if(isset($input_action)){
 				print "<script type=\"text/javascript\">alert(\"Vous devez renseigner le champ Qui (pseudo ou nom).\");</script>";
 				$hote_error=true;
 			}elseif($input_adresse == ""){
-				print "<script type=\"text/javascript\">alert(\"Précisez la localisation de la place que vous proposez.\");</script>";
+				print "<script type=\"text/javascript\">alert(\"PrÃ©cisez la localisation de la place que vous proposez.\");</script>";
 				$hote_error=true;
 			}elseif($input_email == "" and $input_telephone == ""){
 				print "<script type=\"text/javascript\">alert(\"Vous devez renseigner au moins un moyen de contact.\");</script>";
@@ -32,5 +32,3 @@ if(isset($input_action)){
 		break;
 	}
 }
-
-?>

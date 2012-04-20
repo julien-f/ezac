@@ -12,11 +12,11 @@ $element_menu_selectionne = 2;
 include 'html_header.php';
 ?>
 
-		
-				<h2>// Liste des propositions d'hébergement</h2>
-				
+
+				<h2>// Liste des propositions d'hÃ©bergement</h2>
+
 				<div id="liste_propositions">
-				
+
 <?php while($hote = mysql_fetch_assoc($result_hotes)) { ?>
 
 <?php
@@ -27,7 +27,7 @@ include 'html_header.php';
 	}
 	$nb_places_prises = count($tab_invites);
 	$nb_places_restantes = $hote['nb_places'] - $nb_places_prises;
-	
+
 	if(isset($invite_error) && $invite_error && $input_hote_id == $hote['id']){
 		$qui=$input_qui;
 		$tel=$input_telephone;
@@ -61,7 +61,7 @@ include 'html_header.php';
 									<?php } ?>
 									</p>
 								<?php } ?>
-								
+
 								<?php if($nb_places_restantes > 0){ ?>
 								<a href="#" class="bouton_afficher_form_demande">Demander une place</a>
 								<div class="zone_form_demande">
@@ -71,7 +71,7 @@ include 'html_header.php';
 											<input type="hidden" name="action" value="reserve_room" />
 											<input type="hidden" name="hote_id" value="<?php echo $hote['id']; ?>" />
 											<label for="qui_<?php echo $hote['id']; ?>">Nom</label><input id="qui_<?php echo $hote['id']; ?>" class="<?php echo $html_class; ?>" type="text" name="qui" value="<?php echo $qui; ?>" /><br />
-											<label for="telephone_<?php echo $hote['id']; ?>">Téléphone</label><input id="telephone_<?php echo $hote['id']; ?>" class="<?php echo $html_class; ?>" type="text" name="telephone" value="<?php echo $tel; ?>" /><br />
+											<label for="telephone_<?php echo $hote['id']; ?>">TÃ©lÃ©phone</label><input id="telephone_<?php echo $hote['id']; ?>" class="<?php echo $html_class; ?>" type="text" name="telephone" value="<?php echo $tel; ?>" /><br />
 											<label for="email_<?php echo $hote['id']; ?>">E-mail</label><input id="email_<?php echo $hote['id']; ?>" class="<?php echo $html_class; ?>" type="text" name="email" value="<?php echo $email; ?>" /><br />
 											<input class="bouton_valider_form_demande" type="submit" value="Valider" />
 										</form>
@@ -83,14 +83,14 @@ include 'html_header.php';
 						<div class="zone_infos_hebergement">
 							<h3>
 								<a href="#" class="lien_suppression_hote"> </a>
-								Hébergement de <span class="nom_hote"><?php echo $hote['qui']; ?></span>
+								HÃ©bergement de <span class="nom_hote"><?php echo $hote['qui']; ?></span>
 							</h3>
 							<p class="adresse"><?php echo $hote['adresse']; ?></p>
-							
+
 							<?php if($hote['telephone'] != ''){ ?>
-							<span class="telephone">téléphone : <?php echo $hote['telephone']; ?></span>
+							<span class="telephone">tÃ©lÃ©phone : <?php echo $hote['telephone']; ?></span>
 							<?php } ?>
-							
+
 							<?php if($hote['email'] != ''){ ?>
 							<span class="email">e-mail : <?php echo $hote['email']; ?></span>
 							<?php } ?>
@@ -101,13 +101,13 @@ include 'html_header.php';
 							</div>
 						</div>
 						<div class="clear"></div>
-						
+
 					</div>
 
 
-					
+
 <?php } ?>
 
 				</div>
 <?php include '../html_footer.php'; ?>
-<?php include 'footer.php'; ?>
+<?php include 'footer.php';

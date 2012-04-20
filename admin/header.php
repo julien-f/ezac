@@ -4,12 +4,12 @@ include_once '../config/config-database.php';
 
 /**
 * Recherche une identification en POST ou en session
-* Retourne true ou false selon qu'une identification valide est trouvée ou non
+* Retourne true ou false selon qu'une identification valide est trouvÃ©e ou non
 */
 function check_admin(){
 	$admin_login = 'karine';
 	$admin_password = 'KBadmin#85';
-	
+
 	//Recherche d'une identification valide
 	if(isset($_POST['login']) && isset($_POST['password'])){
 		if($_POST['login'] == $admin_login && $_POST['password'] == $admin_password){
@@ -20,7 +20,7 @@ function check_admin(){
 	elseif(isset($_SESSION['admin']) && $_SESSION['admin'] == true){
 		return true;
 	}
-	//Aucune identification trouvée
+	//Aucune identification trouvÃ©e
 	$_SESSION['admin'] = false;
 	return false;
 }
@@ -33,7 +33,7 @@ function get_room_left($hote_id){
 			 WHERE id_hote = '$hote_id'";
 	$result = mysql_query($query, $db_link) or die("Select invites query failed" . mysql_error());
 	$count = mysql_fetch_array($result);
-	
+
 	$query = "SELECT nb_places
 				 FROM hebergement_hotes
 				 WHERE id = '$hote_id'";
@@ -46,8 +46,8 @@ function get_room_left($hote_id){
 function insert_invite($qui, $tel, $email, $hote_id)
 {
 	global $db_link;
-	
-	if(get_room_left($hote_id)>0){	
+
+	if(get_room_left($hote_id)>0){
 		$query="INSERT INTO hebergement_invites VALUES
 		(NULL,
 		'$qui',
@@ -100,7 +100,7 @@ function supprime_hote($id_hote){
 			WHERE id = '" . $id_hote . "';";
 	$success = mysql_query($query, $db_link);
 	if($success){
-	
+
 		$query="DELETE FROM hebergement_invites
 				WHERE id_hote = '" . $id_hote . "';";
 		$success = mysql_query($query, $db_link);
@@ -108,7 +108,7 @@ function supprime_hote($id_hote){
 			return true;
 		}
 	}
-	
+
 	return false;
 }
 
@@ -119,12 +119,12 @@ function supprime_hote($id_hote){
  */
 function get_tab_evenement($event_id){
 	global $db_link;
-	
+
 	$query_evenement = "SELECT * FROM hebergement_evenement WHERE id = '" . mysql_real_escape_string($event_id) . "';";
 	$res_evenement = mysql_query($query_evenement, $db_link);
 	if(!$res_evenement) return null;
 	$tab_evenement = mysql_fetch_array($res_evenement);
-	
+
 	return $tab_evenement;
 }
 
@@ -136,14 +136,14 @@ function get_tab_evenement($event_id){
 function get_invites($id, $event_id)
 {
 	global $db_link;
-	
+
 	$query="SELECT * FROM hebergement_invites WHERE id_hote=$id";
 	return mysql_query($query, $db_link);
 }
 
 //----------------------------------------------------------------------------------------------
 
-//Récupère l'id d'événement qui nous intéresse
+//RÃ©cupÃ¨re l'id d'Ã©vÃ©nement qui nous intÃ©resse
 if(isset($_GET['id_evenement'])){
 	$event_id = $_GET['id_evenement'];
 	$_SESSION['id_evenement'] = $event_id;
@@ -153,7 +153,7 @@ elseif(isset($_SESSION['id_evenement'])){
 }
 else{
 	//$event_id = null;
-	//Evenement par défaut : disons que c'est tradzone
+	//Evenement par dÃ©faut : disons que c'est tradzone
 	$event_id = 1;
 }
 
@@ -165,5 +165,4 @@ if(!$tab_evenement){
 	die();
 }
 
-header('Content-Type: text/html; charset=ISO-8859-1'); 
-?>
+header('Content-Type: text/html; charset=ISO-8859-1');

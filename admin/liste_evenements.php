@@ -11,11 +11,11 @@ $element_menu_selectionne = 1;
 include 'html_header.php';
 ?>
 
-		
-				<h2>// Liste des événements</h2>
-				
+
+				<h2>// Liste des Ã©vÃ©nements</h2>
+
 				<div id="liste_propositions">
-				
+
 <?php while($un_evenement = mysql_fetch_assoc($result_evenements)) { ?>
 					<div class="evenement" style="border: 1px solid #<?php echo $un_evenement['code_couleur']; ?>; box-shadow: 0 0 4px #<?php echo $un_evenement['code_couleur']; ?>;">
 						<a href="reservation.php?id_evenement=<?php echo $un_evenement['id']; ?>">
@@ -26,4 +26,4 @@ include 'html_header.php';
 
 				</div>
 <?php include '../html_footer.php'; ?>
-<?php include 'footer.php'; ?>
+<?php include 'footer.php';
