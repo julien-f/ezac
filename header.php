@@ -3,20 +3,20 @@ session_start();
 include_once 'config/config-database.php';
 include_once 'config/mymail.php';
 
-function hide_email($email) { $character_set = '+-.0123456789@ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz'; $key = str_shuffle($character_set); $cipher_text = ''; $id = 'e'.rand(1,999999999); for ($i=0;$i<strlen($email);$i+=1) $cipher_text.= $key[strpos($character_set,$email[$i])]; $script = 'var a="'.$key.'";var b=a.split("").sort().join("");var c="'.$cipher_text.'";var d="";'; $script.= 'for(var e=0;e<c.length;e++)d+=b.charAt(a.indexOf(c.charAt(e)));'; $script.= 'document.getElementById("'.$id.'").innerHTML="<a href=\\"mailto:"+d+"\\">"+d+"</a>"'; $script = "eval(\"".str_replace(array("\\",'"'),array("\\\\",'\"'), $script)."\")"; $script = '<script type="text/javascript">/*<![CDATA[*/'.$script.'/*]]>*/</script>'; return '<span id="'.$id.'">[Adresse email protégée par Javascript. Activez Javascript pour l\'afficher]</span>'.$script; } 
+function hide_email($email) { $character_set = '+-.0123456789@ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz'; $key = str_shuffle($character_set); $cipher_text = ''; $id = 'e'.rand(1,999999999); for ($i=0;$i<strlen($email);$i+=1) $cipher_text.= $key[strpos($character_set,$email[$i])]; $script = 'var a="'.$key.'";var b=a.split("").sort().join("");var c="'.$cipher_text.'";var d="";'; $script.= 'for(var e=0;e<c.length;e++)d+=b.charAt(a.indexOf(c.charAt(e)));'; $script.= 'document.getElementById("'.$id.'").innerHTML="<a href=\\"mailto:"+d+"\\">"+d+"</a>"'; $script = "eval(\"".str_replace(array("\\",'"'),array("\\\\",'\"'), $script)."\")"; $script = '<script type="text/javascript">/*<![CDATA[*/'.$script.'/*]]>*/</script>'; return '<span id="'.$id.'">[Adresse email protÃ©gÃ©e par Javascript. Activez Javascript pour l\'afficher]</span>'.$script; }
 
 function get_room_left($hote_id){
-	
-	
+
+
 	global $db_link;
 	$hote_id=intval($hote_id);
-	
+
 	$query = "SELECT COUNT(*) AS nb_room
 			 FROM hebergement_invites
 			 WHERE id_hote = '$hote_id'";
 	$result = mysql_query($query, $db_link) or die("Select invites query failed" . mysql_error());
 	$count = mysql_fetch_array($result);
-	
+
 	$query = "SELECT nb_places
 				 FROM hebergement_hotes
 				 WHERE id = $hote_id";
@@ -40,8 +40,8 @@ function get_hote($hote_id){
 function insert_invite($qui, $tel, $email, $origine, $hote_id)
 {
 	global $db_link;
-	
-	if(get_room_left($hote_id)>0){	
+
+	if(get_room_left($hote_id)>0){
 		$query="INSERT INTO hebergement_invites VALUES
 		(NULL,'".
 		mysql_real_escape_string($qui)."','".
@@ -50,61 +50,61 @@ function insert_invite($qui, $tel, $email, $origine, $hote_id)
 		mysql_real_escape_string($origine)."',".
 		"NOW(),".
 		intval($hote_id).")";
-		
+
 		//print $query;
 		mysql_query($query, $db_link) or die("Insert impossible in table hebergement_invites" . mysql_error());
-		
-		//envoi email à l'hébergeur
+
+		//envoi email Ã  l'hÃ©bergeur
 		$hote=get_hote($hote_id);
-		
+
 		$string_hote="
 		Bonjour ".$hote['qui']. ",<br /><br />
-		
-		Nous vous informons que <strong>$qui</strong> a réservé un couchage suite à la proposition d'hébergement que vous aviez effectuée sur <a href=\"http://hebergement.folkafon.com\" >http://hebergement.folkafon.com</a>
-		<br />Voici ses coordonnées en cas de besoin.
+
+		Nous vous informons que <strong>$qui</strong> a rÃ©servÃ© un couchage suite Ã  la proposition d'hÃ©bergement que vous aviez effectuÃ©e sur <a href=\"http://hebergement.folkafon.com\" >http://hebergement.folkafon.com</a>
+		<br />Voici ses coordonnÃ©es en cas de besoin.
 		<ul>
 		<li>Nom : <strong>$qui</strong> ($origine)</li>
 		<li>Tel : $tel</li>
 		<li>Email : $email</li></ul>
-		
+
 		Merci beaucoup pour votre accueil !
 		<br /><br />
-		NB : En cas de problème avec ce service, nous vous invitons à répondre à ce mail en précisant le souci rencontré. 
+		NB : En cas de problÃ¨me avec ce service, nous vous invitons Ã  rÃ©pondre Ã  ce mail en prÃ©cisant le souci rencontrÃ©.
 		<br /><br />
 		---<br />
 		L'association Folkafon<br />
 		<a href=\"http://www.folkafon.com\">
 		<img src='http://letonio.fr/tZ/pic/nuittrad_2012.png' alt=\"14 avril 2012 : Nuit Trad'actuelle 2012 !\" /></a>
 		";
-		
-		if (smtpmailer($hote['email'], 'hebergement@folkafon.com', 'Hebergement - Folkafon', '[Nuit Trad\'actuelle | 1 Couchage réservé !]', $string_hote)) {
+
+		if (smtpmailer($hote['email'], 'hebergement@folkafon.com', 'Hebergement - Folkafon', '[Nuit Trad\'actuelle | 1 Couchage rÃ©servÃ© !]', $string_hote)) {
 			// do something
 		}
 		//if (!empty($error)) echo $error;
 
 
 
-		//envoi de mail à l'hébergé
+		//envoi de mail Ã  l'hÃ©bergÃ©
 		$string_invited=
-		"Bonjour $qui, <br /><br /> 
-		
-		Vous avez réservé une place de couchage chez ". $hote['qui'].".<br />
-		<strong>N'oubliez pas de vous mettre d'accord avec votre hôte par téléphone ou par mail.</strong><br />
-		Voici ses coordonnées :<br />
+		"Bonjour $qui, <br /><br />
+
+		Vous avez rÃ©servÃ© une place de couchage chez ". $hote['qui'].".<br />
+		<strong>N'oubliez pas de vous mettre d'accord avec votre hÃ´te par tÃ©lÃ©phone ou par mail.</strong><br />
+		Voici ses coordonnÃ©es :<br />
 		<ul>
 			<li><strong>".$hote['qui']."</strong></li>
 			<li>Lieu : ".$hote['adresse']."</li>
-			<li>Téléphone : ".$hote['telephone']."</li>
+			<li>TÃ©lÃ©phone : ".$hote['telephone']."</li>
 			<li>Email : <a href=\"mailto:".$hote['email']."\" >".$hote['email']."</a></li>
-			
+
 		</ul>
-		Précisions éventuelles : ".nl2br(stripslashes($hote['couchage']))."<br />".nl2br(stripslashes($hote['remarque']))."
+		PrÃ©cisions Ã©ventuelles : ".nl2br(stripslashes($hote['couchage']))."<br />".nl2br(stripslashes($hote['remarque']))."
 		<br />		<br />
 
-		Merci d'avoir utilisé le <a href=\"http://hebergement.folkafon.com\" >service d'hébergement</a> de l'association Folkafon.<br /><br />
-		
-		NB : En cas de problème avec ce service, nous vous invitons à répondre à ce mail en précisant le souci rencontré. (hebergement@folkafon.com)
-		
+		Merci d'avoir utilisÃ© le <a href=\"http://hebergement.folkafon.com\" >service d'hÃ©bergement</a> de l'association Folkafon.<br /><br />
+
+		NB : En cas de problÃ¨me avec ce service, nous vous invitons Ã  rÃ©pondre Ã  ce mail en prÃ©cisant le souci rencontrÃ©. (hebergement@folkafon.com)
+
 		---<br />
 		L'association Folkafon<br />
 		<a href=\"http://www.folkafon.com\">
@@ -113,14 +113,14 @@ function insert_invite($qui, $tel, $email, $origine, $hote_id)
 			//echo $string;
 
 
-		if (smtpmailer($email, 'hebergement@folkafon.com', 'Hebergement - Folkafon', '[Nuit Trad\'actuelle | Votre hébergement]', $string_invited)) {
+		if (smtpmailer($email, 'hebergement@folkafon.com', 'Hebergement - Folkafon', '[Nuit Trad\'actuelle | Votre hÃ©bergement]', $string_invited)) {
 			// do something
 		}
 		//if (!empty($error)) echo $error;
 		//if (!empty($error)) echo $error;
 
 
-		
+
 	}else{
 		print "<script type=\"text/javascript\">alert(\"Il n'y a plus de place chez cet hote.\");</script>";
 	}
@@ -143,27 +143,27 @@ function insert_hote($id_evenement, $qui, $localisation, $tel, $email, $nb_place
 		NOW())";
 		//print $qprint $query;
 		mysql_query($query, $db_link) or die("Insert impossible in table hebergement_hotes" . mysql_error());
-		
+
 		//envoi de mail
 		$string=
-		"Bonjour $qui, <br /><br /> 
-		
-		Vous avez ajouté $nb_places place(s) de couchage pour accueillir des danseurs ou des musiciens lors de la Nuit Trad'actuelle..<br />
-		<strong>Nous vous en remercions vivement ! </strong><br />Afin de garnir l'offre existante, nous vous invitons à transférer le lien <a href=\"http://hebergement.folkafon.com\">http://hebergement.folkafon.com</a> à vos connaissances susceptibles de faire preuve d'autant d'hospitalité que vous !
-	
+		"Bonjour $qui, <br /><br />
+
+		Vous avez ajoutÃ© $nb_places place(s) de couchage pour accueillir des danseurs ou des musiciens lors de la Nuit Trad'actuelle..<br />
+		<strong>Nous vous en remercions vivement ! </strong><br />Afin de garnir l'offre existante, nous vous invitons Ã  transfÃ©rer le lien <a href=\"http://hebergement.folkafon.com\">http://hebergement.folkafon.com</a> Ã  vos connaissances susceptibles de faire preuve d'autant d'hospitalitÃ© que vous !
+
 		<br /><br />
-		NB : En cas de problème avec ce service, nous vous invitons à répondre à ce mail en précisant le souci rencontré. (hebergement@folkafon.com)
+		NB : En cas de problÃ¨me avec ce service, nous vous invitons Ã  rÃ©pondre Ã  ce mail en prÃ©cisant le souci rencontrÃ©. (hebergement@folkafon.com)
 		<br /><br />
-		Merci d'avoir utilisé le service d'hébergement de l'association Folkafon et à très bientôt !<br /><br />
-		
+		Merci d'avoir utilisÃ© le service d'hÃ©bergement de l'association Folkafon et Ã  trÃ¨s bientÃ´t !<br /><br />
+
 		---<br />
 		L'association Folkafon<br />
 		<a href=\"http://www.folkafon.com\">
 		<img src='http://letonio.fr/tZ/pic/nuittrad_2012.png' alt=\"14 avril 2012 : Nuit Trad'actuelle 2012 !\" /></a>
 		";
-		
-		
-		if (smtpmailer($email, 'hebergement@folkafon.com', 'Hebergement - Folkafon', '[Nuit Trad\'actuelle | Hébergement]', $string)) {
+
+
+		if (smtpmailer($email, 'hebergement@folkafon.com', 'Hebergement - Folkafon', '[Nuit Trad\'actuelle | HÃ©bergement]', $string)) {
 			// do something
 		}
 		if (!empty($error)) echo $error;
@@ -175,13 +175,13 @@ function insert_hote($id_evenement, $qui, $localisation, $tel, $email, $nb_place
  */
 function get_tab_evenement($event_id){
 	global $db_link;
-	
+
 	$query_evenement = "SELECT * FROM hebergement_evenement WHERE id = " . intval($event_id) ;
 
 	$res_evenement = mysql_query($query_evenement, $db_link);
 	if(!$res_evenement) return null;
 	$tab_evenement = mysql_fetch_array($res_evenement);
-	
+
 	return $tab_evenement;
 }
 
@@ -193,14 +193,14 @@ function get_tab_evenement($event_id){
 function get_invites($id, $event_id)
 {
 	global $db_link;
-	
+
 	$query="SELECT * FROM hebergement_invites WHERE id_hote= " . intval($id);
 	return mysql_query($query, $db_link);
 }
 
 //----------------------------------------------------------------------------------------------
 
-//Récupère l'id d'événement qui nous intéresse
+//RÃ©cupÃ¨re l'id d'Ã©vÃ©nement qui nous intÃ©resse
 if(isset($_GET['id_evenement'])){
 	$event_id = intval($_GET['id_evenement']);
 	$_SESSION['id_evenement'] = $event_id;
@@ -210,7 +210,7 @@ elseif(isset($_SESSION['id_evenement'])){
 }
 else{
 	//$event_id = null;
-	//Evenement par défaut : disons que c'est tradzone
+	//Evenement par dÃ©faut : disons que c'est tradzone
 	$event_id = 1;
 }
 
@@ -221,4 +221,3 @@ if(!$tab_evenement){
 	header('location: http://www.folkafon.com');
 	die();
 }
-?>

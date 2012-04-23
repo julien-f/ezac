@@ -11,11 +11,11 @@ include 'html_header.php';
 ?>
 
 
-<h2>// Liste des propositions d'hébergement</h2>
+<h2>// Liste des propositions d'hÃ©bergement</h2>
 
 <div id="liste_propositions">
-	
-				
+
+
 <?php while($hote = mysql_fetch_assoc($result_hotes)) { ?>
 
 <?php
@@ -26,7 +26,7 @@ include 'html_header.php';
 	}
 	$nb_places_prises = count($tab_invites);
 	$nb_places_restantes = $hote['nb_places'] - $nb_places_prises;
-	
+
 	if(isset($invite_error) && $invite_error && $input_hote_id == $hote['id']){
 		$qui=$input_qui;
 		$tel=$input_telephone;
@@ -53,9 +53,9 @@ include 'html_header.php';
 									<?php foreach($tab_invites as $invite){ ?>
 										<span class="invite">
 											- <?php echo $invite['qui']; ?>
-											
 
-											<?php 
+
+											<?php
 												if(!empty($invite['origine'])){
 													echo "(".$invite['origine'].")";
 												}
@@ -65,7 +65,7 @@ include 'html_header.php';
 									<?php } ?>
 									</p>
 								<?php } ?>
-								
+
 								<?php if($nb_places_restantes > 0){ ?>
 								<a href="#" class="bouton_afficher_form_demande">Demander une place</a>
 								<div class="zone_form_demande">
@@ -76,45 +76,45 @@ include 'html_header.php';
 											<input type="hidden" name="hote_id" value="<?php echo $hote['id']; ?>" />
 											<label for="qui_<?php echo $hote['id']; ?>">Nom*</label><input id="userQui" class="<?php echo $html_class; ?>" type="text" name="qui" value="<?php echo $qui; ?>" placeholder="Nom ou pseudo" /><br />
 											<label for="email_<?php echo $hote['id']; ?>">E-mail*</label><input id="userEmail" class="<?php echo $html_class; ?>" type="text" name="email" value="<?php echo $email; ?>" placeholder="Adresse email" /><br />
-											<label for="telephone_<?php echo $hote['id']; ?>">Téléphone</label><input id="userTelephone>" class="<?php echo $html_class; ?>" type="text" name="telephone" value="<?php echo $tel; ?>" placeholder="Numéro de téléphone" /><br />
-											<label for="origine_<?php echo $hote['id']; ?>">Origine</label><input id="userOrigine" class="<?php echo $html_class; ?>" type="text" name="origine" value="<?php echo $origine; ?>" placeholder="Région/Ville d'origine" /><br />
+											<label for="telephone_<?php echo $hote['id']; ?>">TÃ©lÃ©phone</label><input id="userTelephone>" class="<?php echo $html_class; ?>" type="text" name="telephone" value="<?php echo $tel; ?>" placeholder="NumÃ©ro de tÃ©lÃ©phone" /><br />
+											<label for="origine_<?php echo $hote['id']; ?>">Origine</label><input id="userOrigine" class="<?php echo $html_class; ?>" type="text" name="origine" value="<?php echo $origine; ?>" placeholder="RÃ©gion/Ville d'origine" /><br />
 											<input class="bouton_valider_form_demande" type="submit" value="Valider" />
 										</form>
-										<p class="indication">NB : Seul votre nom (ou pseudo) et origine seront visibles sur la page. Votre téléphone et votre email ne seront visibles que par votre hôte.<br /><br />*Champ obligatoire</p>
+										<p class="indication">NB : Seul votre nom (ou pseudo) et origine seront visibles sur la page. Votre tÃ©lÃ©phone et votre email ne seront visibles que par votre hÃ´te.<br /><br />*Champ obligatoire</p>
 									</div>
 								</div>
 								<?php } ?>
 							</p>
 						</div>
 						<div class="zone_infos_hebergement">
-							<h3>Hébergement de <span class="nom_hote"><?php echo $hote['qui']; ?></span></h3>
+							<h3>HÃ©bergement de <span class="nom_hote"><?php echo $hote['qui']; ?></span></h3>
 							<p class="adresse"><?php echo $hote['adresse']; ?></p>
-							
+
 							<?php if($hote['telephone'] != ''){ ?>
-							<span class="telephone">téléphone : <?php echo $hote['telephone']; ?></span>
+							<span class="telephone">tÃ©lÃ©phone : <?php echo $hote['telephone']; ?></span>
 							<?php } ?>
-							
+
 							<?php if($hote['email'] != ''){ ?>
 							<span class="email">e-mail : <?php echo hide_email($hote['email']); ?></span>
 							<?php } ?>
 							<br />
 							<div class="zone_remarques">
-								<?php if (!empty($hote['couchage'])){ 
+								<?php if (!empty($hote['couchage'])){
 									echo "<p class=\"infos_couchage\"><strong>Couchage :</strong> ". nl2br(stripslashes($hote['couchage'])). "</p>";
 								}?>
-								<?php if (!empty($hote['remarque'])){ 
+								<?php if (!empty($hote['remarque'])){
 									echo "<p class=\"infos_remarque\"><strong>Remarques :</strong> ". nl2br(stripslashes($hote['remarque'])). "</p>";
 								}?>
 							</div>
 						</div>
 						<div class="clear"></div>
-						
+
 					</div>
 
 
-					
+
 <?php } ?>
 
 				</div>
 <?php include 'html_footer.php'; ?>
-<?php include 'footer.php'; ?>
+<?php include 'footer.php';

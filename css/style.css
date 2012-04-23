@@ -27,7 +27,7 @@ body{
 	background-repeat: repeat-x;
 	position: relative;
 	z-index: 4;
-		
+
 }
 
 #logo_folkafon{
@@ -35,7 +35,7 @@ body{
 	left: 1px;
 	top: 2px;
 	z-index: 5;
-	
+
 }
 
 #texte_entete{
@@ -312,7 +312,7 @@ h2{
 	box-shadow: 3px 3px 5px #aaa;
 	text-align: right;
 	line-height: 29px;
-	/*Pour n'apparaître qu'avec le bouton JS*/
+	/*Pour n'apparaÃ®tre qu'avec le bouton JS*/
 	margin-top: -280px;
 }
 
@@ -331,12 +331,12 @@ h2{
 }
 
 .form_demande input.input_text{
-	width: 199px; 
+	width: 199px;
 	height: 23px;
 	border: 1px solid #606060;
 	margin-right: 30px;
-	
-	
+
+
 }
 
 .form_demande .indication{
@@ -346,7 +346,7 @@ h2{
 	line-height: 115%;
 	padding: 5px;
 	margin-top: 10px;
-	
+
 }
 
 
@@ -396,7 +396,7 @@ input.input_text:focus{
 }
 
 
-/* Page de proposition d'hébergement */
+/* Page de proposition d'hÃ©bergement */
 
 #zone_formulaire_proposition{
 	margin: 19px 34px 70px 26px;

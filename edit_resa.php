@@ -1,5 +1,3 @@
-
-
 <?php
 foreach ($_POST as $name => $value){
 	${'input_'.$name} = $value;
@@ -8,7 +6,7 @@ if(isset($input_action)){
 	switch($input_action){
 		case "reserve_room":
 			if($input_qui == ""){
-				print "<script type=\"text/javascript\">alert(\"Vous devez donner un nom (pseudos autorisés).\");</script>";
+				print "<script type=\"text/javascript\">alert(\"Vous devez donner un nom (pseudos autorisÃ©s).\");</script>";
 				$hote_error=true;
 			}
 			elseif($input_email == ""){
@@ -23,7 +21,7 @@ if(isset($input_action)){
 				print "<script type=\"text/javascript\">alert(\"Vous devez renseigner le champ Qui (pseudo ou nom).\");</script>";
 				$hote_error=true;
 			}elseif($input_localisation == ""){
-				print "<script type=\"text/javascript\">alert(\"Précisez le lieu (village, ville+quartier, etc) de l'hébergement que vous proposez.\");</script>";
+				print "<script type=\"text/javascript\">alert(\"PrÃ©cisez le lieu (village, ville+quartier, etc) de l'hÃ©bergement que vous proposez.\");</script>";
 				$hote_error=true;
 			}elseif($input_email == ""){
 				print "<script type=\"text/javascript\">alert(\"Vous devez renseigner au moins un moyen de contact.\");</script>";
@@ -34,5 +32,3 @@ if(isset($input_action)){
 		break;
 	}
 }
-
-?>

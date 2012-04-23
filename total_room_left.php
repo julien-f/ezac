@@ -15,6 +15,3 @@ $count_invites = mysql_fetch_array($result);
 
 
 echo $count_hotes['nb_hotes']-$count_invites['nb_invites'];
-
-
-?>

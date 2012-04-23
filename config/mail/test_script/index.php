@@ -423,5 +423,3 @@ if ( count($errorMsg) > 0 ) {
   </form>
   <?php
 }
-
-?>

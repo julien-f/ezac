@@ -1,3 +1,2 @@
 <?php
 mysql_close();
-?>
