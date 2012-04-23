@@ -1,7 +1,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr" dir="ltr">
 	<head>
-		<title>Réservation hebergement - <?php echo $tab_evenement['nom']; ?></title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Réservation hébergement - <?php echo $tab_evenement['nom']; ?></title>
 		<link href="css/style.css" rel="stylesheet" type="text/css" />
 		<link rel="icon" type="image/png" href="http://www.folkafon.com/favicon.ico" />
 		<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
