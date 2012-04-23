@@ -1,0 +1,17 @@
+body{
+	background: #CC99FF;
+}
+
+#bandeau {
+background : transparent url("../img/Banniere_funambals.png") no-repeat;
+width:540px;
+height:81px;
+margin : 0 auto;
+}
+
+#banniere_droite {
+background : transparent url("../img/Banniere_funambals_right.png") repeat-y;
+width:118px;
+height:668px;
+float:right;
+}
