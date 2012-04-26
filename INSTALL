@@ -1,0 +1,55 @@
+Create a new user and/or a new database on your MySQL server and then
+fill the “config/config-database.php” file.
+
+Create the necessary tables on your database:
+
+    CREATE TABLE IF NOT EXISTS `hebergement_evenement` (
+      `id` int(11) NOT NULL auto_increment,
+      `nom` varchar(255) NOT NULL,
+      `lieu` text NOT NULL,
+      `dates` text NOT NULL,
+      `infos` text NOT NULL,
+      `infos_contact` text NOT NULL,
+      `site_officiel` varchar(511) NOT NULL,
+      `banniere` varchar(127) NOT NULL,
+      `code_couleur` varchar(6) NOT NULL,
+      PRIMARY KEY  (`id`)
+    ) ENGINE=MyISAM  DEFAULT CHARSET=utf8;
+    CREATE TABLE IF NOT EXISTS `hebergement_hotes` (
+      `id` int(11) NOT NULL auto_increment,
+      `id_evenement` int(11) NOT NULL,
+      `qui` varchar(255) collate utf8_general_ci NOT NULL,
+      `adresse` varchar(511) collate utf8_general_ci NOT NULL,
+      `telephone` varchar(15) collate utf8_general_ci NOT NULL,
+      `email` varchar(127) collate utf8_general_ci NOT NULL,
+      `nb_places` smallint(6) NOT NULL,
+      `couchage` text collate utf8_general_ci NOT NULL,
+      `remarque` text collate utf8_general_ci NOT NULL,
+      `date_inscription` datetime NOT NULL,
+      PRIMARY KEY  (`id`)
+    ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+    CREATE TABLE IF NOT EXISTS `hebergement_invites` (
+      `id` int(11) NOT NULL auto_increment,
+      `qui` varchar(255) collate utf8_general_ci NOT NULL,
+      `telephone` varchar(15) collate utf8_general_ci NOT NULL,
+      `email` varchar(127) collate utf8_general_ci NOT NULL,
+      `date_inscription` datetime NOT NULL,
+      `id_hote` int(11) NOT NULL,
+      PRIMARY KEY  (`id`)
+    ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+Insert an initial event in the database:
+
+    INSERT INTO `hebergement_evenement` (`nom`, `lieu`, `dates`,
+      `infos`, `infos_contact`, `site_officiel`, `banniere`,
+      `code_couleur`)
+    VALUES (
+      '', -- Name of the event.
+      '', -- Location.
+      '', -- Dates.
+      '', -- Various information.
+      '', -- Contact address.
+      '', -- URL of the event page.
+      '', -- Logo for this event (located under “img/bannieres”).
+      '', -- Hexadecimal color.
+    );

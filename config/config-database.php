@@ -16,10 +16,10 @@
  * along with Ezac.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-// $user="";
-// $password="";
-// $database="";
-// $sql_server="localhost";
+$user       = 'YOUR USER';
+$password   = 'YOUR PASSWORD';
+$database   = 'YOUR DATABASE';
+$sql_server = 'YOUR HOST';
 
 $db_link = mysql_connect($sql_server, $user, $password) or die("Impossible de se connecter a la base");
 mysql_select_db($database, $db_link) or die( "Unable to select database");
