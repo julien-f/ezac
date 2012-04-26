@@ -21,11 +21,20 @@
 
 		<div id="footer">
 			<p id="texte_legals">
-				N’oubliez pas de vous mettre d’accord par téléphone. Ce système a uniquement pour but de mettre en relation hébergeurs et hébergés lors des événements folk.<br />
-				La Campanule ne garantit aucun de ces hébergements et décline toute responsabilité en cas de problème entre hôte et invité.
+				N’oubliez pas de vous mettre d’accord par téléphone. Ce système
+				a uniquement pour but de mettre en relation hébergeurs et
+				hébergés lors des événements folk.<br />
+				La Campanule ne garantit aucun de ces hébergements et décline
+				toute responsabilité en cas de problème entre hôte et invité.
 			</p>
 			<p id="texte_copyright">
-				Copyright 2012 La Campanule. Développement et graphisme : Ludovic Hablot et Martin Delagrèverie pour La Campanule
+				<em>Ezac</em> <small>(Easy Accomodation)</small> is brought to
+				you by Martin Delagrèverie, Julien Fontanet, Antoine Guerrée,
+				Ludovic Hablot &amp; Sébastien Matharel
+				and <a href="https://github.com/julien-f/ezac">is available</a>
+				under
+				the <a href="http://www.gnu.org/licenses/quick-guide-gplv3.html">GPL
+				v3</a> licence.
 			</p>
 		</div>
 	</body>
