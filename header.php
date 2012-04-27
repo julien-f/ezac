@@ -23,8 +23,6 @@ include_once 'config/mymail.php';
 function hide_email($email) { $character_set = '+-.0123456789@ABCDEFGHIJKLMNOPQRSTUVWXYZ_abcdefghijklmnopqrstuvwxyz'; $key = str_shuffle($character_set); $cipher_text = ''; $id = 'e'.rand(1,999999999); for ($i=0;$i<strlen($email);$i+=1) $cipher_text.= $key[strpos($character_set,$email[$i])]; $script = 'var a="'.$key.'";var b=a.split("").sort().join("");var c="'.$cipher_text.'";var d="";'; $script.= 'for(var e=0;e<c.length;e++)d+=b.charAt(a.indexOf(c.charAt(e)));'; $script.= 'document.getElementById("'.$id.'").innerHTML="<a href=\\"mailto:"+d+"\\">"+d+"</a>"'; $script = "eval(\"".str_replace(array("\\",'"'),array("\\\\",'\"'), $script)."\")"; $script = '<script type="text/javascript">/*<![CDATA[*/'.$script.'/*]]>*/</script>'; return '<span id="'.$id.'">[Adresse email protégée par Javascript. Activez Javascript pour l\'afficher]</span>'.$script; }
 
 function get_room_left($hote_id){
-
-
 	global $db_link;
 	$hote_id=intval($hote_id);
 
@@ -158,7 +156,7 @@ function insert_hote($id_evenement, $qui, $localisation, $tel, $email, $nb_place
 		mysql_real_escape_string($couchage)."','".
 		mysql_real_escape_string($remarque)."',
 		NOW())";
-		//print $qprint $query;
+		//print $query;
 		mysql_query($query, $db_link) or die("Insert impossible in table hebergement_hotes" . mysql_error());
 
 		//envoi de mail
@@ -227,14 +225,14 @@ elseif(isset($_SESSION['id_evenement'])){
 }
 else{
 	//$event_id = null;
-	//Evenement par défaut : disons que c'est tradzone
-	$event_id = 1;
+	//Evenement par défaut : disons que c'est funam'bals
+	$event_id = 2;
 }
 
 $tab_evenement = get_tab_evenement($event_id);
 
 if(!$tab_evenement){
 	$_SESSION['id_evenement'] = null;
-	header('location: http://www.folkafon.com');
+	header('location: http://lacampanule.free.fr/');
 	die();
 }

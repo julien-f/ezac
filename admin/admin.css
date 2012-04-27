@@ -1,0 +1,160 @@
+/*
+ * This file is part of Ezac.
+ *
+ * Ezac is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Ezac is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with Ezac.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
+fieldset{
+	border: none;
+}
+
+#zone_messages{
+	position: absolute;
+	top: 124px;
+	left: 10px;
+	right: 10px;
+	height: 16px;
+	font-size: 13px;
+	text-align: center;
+}
+
+#zone_messages .message_erreur{
+	color: #d90909;
+	font-weight: bold;
+}
+
+#page_connexion{
+	background-color: #efefef;
+}
+
+#titre_page_connexion{
+	text-align: center;
+	font-size: 22px;
+	font-family: Arial;
+	color: #404040;
+	margin-top: 80px;
+}
+
+#panneau_login{
+	background-color: #ffffff;
+	width: 330px;
+	height: 117px;
+	border: 1px solid #afafaf;
+	box-shadow: 0 0 4px #afafaf;
+	margin: 40px auto 0 auto;
+	padding: 12px 15px 12px 15px;
+	color: #505050;
+	position: relative;
+	font-size: 14px;
+	background-image: url(./img/cadenas.png);
+	background-position: 10px 17px;
+	background-repeat: no-repeat;
+}
+
+#panneau_login label{
+	display: block;
+	margin-bottom: 3px;
+	text-align: right;
+}
+
+#bouton_connexion{
+	background-color: #f5f5f5;
+	border: 1px solid #afafaf;
+	box-shadow: 0 0 1px #afafaf;
+	padding: 0 25px 0 25px;
+	font-size: 15px;
+	font-weight: bold;
+	color: #262526;
+	vertical-align: middle;
+	height: 34px; /*32*/
+	cursor: pointer;
+	position: absolute;
+	left: 120px;
+	bottom: 20px;
+}
+#bouton_connexion:hover{
+	border: 1px solid #9e0000;
+	box-shadow: 0 0 2px #9e0000;
+}
+
+#entete_evenement{
+	background-color: #000000;
+}
+
+#texte_entete_evenement{
+	color: #696d85;
+	font-size: 34px;
+	margin-right: 542px;
+	padding-top: 33px;
+}
+
+#zone_banniere{
+	background-color: #ffffff;
+}
+
+.evenement{
+	width: 482px;
+	max-height: 86px;
+	overflow: hidden;
+	margin: 10px auto 15px auto;
+}
+
+.lien_suppression_hote{
+	display: inline-block;
+	width: 18px;
+	height: 18px;
+	margin: 0 4px 0 0;
+	border: 1px solid #000000;
+	border-radius: 4px;
+	vertical-align: middle;
+	background-image: url(./img/delete.png);
+	background-position: 1px 2px;
+	background-repeat: no-repeat;
+	background-color: #000000;
+	box-shadow: 0 0 2px #6e6e6e;
+}
+.lien_suppression_hote:hover{
+	box-shadow: 0 0 2px #9e0000;
+}
+
+
+.invite{
+	margin: 0 3px 0 -24px;
+	padding: 1px 0 2px 0;
+	position: relative;
+	display: block;
+}
+
+.invite:hover{
+	background-color: #000000;
+	border-radius: 2px;
+	cursor: default;
+}
+
+.invite .description_invite{
+	display: inline-block;
+	margin-left: 24px;
+}
+
+.lien_suppression_invite{
+	display: block;
+	width: 16px;
+	height: 16px;
+	position: absolute;
+	left: 2px;
+	top: 2px;
+}
+.invite:hover .lien_suppression_invite{
+	background-image: url(./img/delete.png);
+}

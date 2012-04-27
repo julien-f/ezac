@@ -15,4 +15,6 @@
  * You should have received a copy of the GNU General Public License
  * along with Ezac.  If not, see <http://www.gnu.org/licenses/>.
  */
-header('location:reservation.php');
+
+header('location:/hebergement/reservation.php?id_evenement=2');
+die();

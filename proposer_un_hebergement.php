@@ -80,7 +80,6 @@ include 'html_header.php';
 
 
 		<input class="bouton_valider_form_proposition" type="submit" value="Valider" />
-
 	</form>
 
 </div>

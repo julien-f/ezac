@@ -15,4 +15,5 @@
  * You should have received a copy of the GNU General Public License
  * along with Ezac.  If not, see <http://www.gnu.org/licenses/>.
  */
-header('location:reservation.php');
+
+mysql_close();

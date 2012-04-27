@@ -15,4 +15,16 @@
  * You should have received a copy of the GNU General Public License
  * along with Ezac.  If not, see <http://www.gnu.org/licenses/>.
  */
-header('location:reservation.php');
+
+include 'header.php';
+check_admin() or die('0');
+
+if(isset($_POST['id_invite'])){
+	$success = supprime_invite($_POST['id_invite']);
+
+	if($success){
+		die('1');
+	}
+}
+
+die('0');

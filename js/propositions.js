@@ -38,30 +38,29 @@ $(document).ready(function(){
 		a.preventDefault();
 
 		var nom_renseigne = $(this).parents('form').find('input[name=qui]').val();
-
 		var mail_renseigne = $(this).parents('form').find('input[name=email]').val();
 
-        var hasError = false;
-        var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+		var hasError = false;
+		var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
 
+		if((mail_renseigne == '') || (nom_renseigne == ''))
+		{
+			hasError = true;
+			alert("Un champ est manquant : renseignez au moins votre nom et votre email");
+		}
+		else if(!emailReg.test(mail_renseigne))
+		{
+			hasError = true;
+			alert(mail_renseigne+" ne semble pas être un email conforme");
+		}
 
-        if((mail_renseigne == '') || (nom_renseigne == '')) {
-
-            hasError = true;
-            alert("Un champ est manquant : renseignez au moins votre nom et votre email");
-        }
-
-        else if(!emailReg.test(mail_renseigne)) {
-
-
-            hasError = true;
-            alert(mail_renseigne+" ne semble pas être un email conforme");
-        }
-
-        if(hasError == true) { return false; }
-		else{
+		if(hasError == true) {
+			return false;
+		}
+		else
+		{
 			$(this).parents('form').submit();
-			}
+		}
 	});
 
 });
