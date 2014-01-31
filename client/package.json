@@ -1,0 +1,30 @@
+{
+  "name": "client",
+  "version": "0.0.0",
+  "description": "",
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/julien-f/ezac.git"
+  },
+  "author": "Julien Fontanet <julien.fontanet@isonoe.net> (http://julien.isonoe.net/)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/julien-f/ezac/issues"
+  },
+  "homepage": "https://github.com/julien-f/ezac",
+  "devDependencies": {
+    "bower": "~1.2.8",
+    "chai": "~1.9.0",
+    "gulp": "~3.5.0",
+    "gulp-browserify": "~0.4.0",
+    "gulp-clean": "~0.2.4",
+    "gulp-csso": "~0.2.3",
+    "gulp-jade": "~0.4.0",
+    "gulp-less": "~1.2.0",
+    "gulp-mocha": "~0.4.1",
+    "gulp-uglify": "~0.2.0"
+  }
+}
