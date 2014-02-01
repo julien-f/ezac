@@ -5,9 +5,9 @@ html
 		title Ezac
 		link(rel = 'stylesheet', href = './app.css')
 
-	body
+	body(ng-app = 'ezac')
 
-		.navbar.navbar-inverse.navbar-fixed-top(role = 'navigation')
+		nav.navbar.navbar-inverse.navbar-fixed-top(role = 'navigation')
 
 			//- Brand and toggle get grouped for better mobile display.
 			.navbar-header
@@ -34,7 +34,8 @@ html
 
 					//- Main menu.
 					li.dropdown
-						a.dropdown-toggle.inverse Menu
+						a.dropdown-toggle.inverse
+							i.fa.fa-th
 						ul.dropdown-menu.inverse
 							li(ng-class = '{active: $uiRoute}', ui-route = '/')
 								a(ui-sref = 'home') Home

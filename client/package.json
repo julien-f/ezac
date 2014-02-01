@@ -18,6 +18,8 @@
   "devDependencies": {
     "bower": "~1.2.8",
     "chai": "~1.9.0",
+    "deamdify": "~0.1.1",
+    "debowerify": "~0.5.2",
     "gulp": "~3.5.0",
     "gulp-browserify": "~0.4.0",
     "gulp-clean": "~0.2.4",
@@ -25,6 +27,7 @@
     "gulp-jade": "~0.4.0",
     "gulp-less": "~1.2.0",
     "gulp-mocha": "~0.4.1",
-    "gulp-uglify": "~0.2.0"
+    "gulp-uglify": "~0.2.0",
+    "gulp-watch": "~0.5.0"
   }
 }

@@ -16,8 +16,9 @@
   ],
   "dependencies": {
     "angular": "~1.2.10",
-    "angular-ui-router": "~0.2.8",
-    "strapless": "~3.0.3",
-    "angular-ui-bootstrap-bower": "~0.10.0"
+    "angular-ui-bootstrap-bower": "~0.10.0",
+    "angular-ui-router": "0.2.8-bowratic-tedium",
+    "font-awesome": "~4.0.3",
+    "strapless": "~3.0.3"
   }
 }

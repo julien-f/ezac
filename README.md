@@ -33,6 +33,7 @@ The current version has been created Julien Fontanet.
 # Server
 
 - bluebird: to manage asynchronous code (promises & generators).
+- connect: to serve static file in the HTTP server.
 - final-db: file system database.
 - handlebars: to binds mail templates with the data.
 - marked: to compile mail templates from Markdown to HTML.
