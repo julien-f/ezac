@@ -7,7 +7,7 @@ html
 
 	body(ng-app = 'ezac')
 
-		nav.navbar.navbar-inverse.navbar-fixed-top(role = 'navigation')
+		nav.navbar.navbar-inverse.navbar-fixed-top(role = 'navigation'): .container
 
 			//- Brand and toggle get grouped for better mobile display.
 			.navbar-header
@@ -27,7 +27,7 @@ html
 				a.navbar-brand(ui-sref = 'home') Ezac
 
 			//- All navbar items are collapsed on mobile display.
-			.collapse.navbar-collapse(ng-class = '!collapsed && "in"')
+			.collapse.navbar-collapse(ng-class = '!navBarCollapsed && "in"')
 
 				//- Right items of the navbar.
 				ul.nav.navbar-nav.navbar-right
@@ -39,10 +39,11 @@ html
 						ul.dropdown-menu.inverse
 							li(ng-class = '{active: $uiRoute}', ui-route = '/')
 								a(ui-sref = 'home') Home
+							li(ng-class = '{active: $uiRoute}', ui-route = '/about')
+								a(ui-sref = 'about') About
 
 		.container
-			h1 Ezac
-			p.lead.
-				This is the first version of Ezac.
+
+			div(ui-view)
 
 		script(src = './app.js')

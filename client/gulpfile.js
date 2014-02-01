@@ -1,20 +1,25 @@
 'use strict';
 
-//==============================================================================
+//====================================================================
 
 var bower = require('bower');
 var browserify = require('gulp-browserify');
 var clean = require('gulp-clean');
 var csso = require('gulp-csso');
+var embedlr = require('gulp-embedlr');
 var gulp = require('gulp');
 var jade = require('gulp-jade');
 var less = require('gulp-less');
+var livereload = require('gulp-livereload');
 var mocha = require('gulp-mocha');
+var ngmin = require('gulp-ngmin');
+var tinylr = require('tiny-lr');
 var uglify = require('gulp-uglify');
 var watch = require('gulp-watch');
 
-//==============================================================================
+//====================================================================
 
+var LIVERELOAD_PORT = 46417;
 var BOWER_DIR = __dirname +'/bower_components';
 var DIST_DIR = __dirname +'/dist';
 var SRC_DIR = __dirname +'/app';
@@ -42,18 +47,40 @@ var src = function (pattern) {
 
 	if (watchChanges)
 	{
-		stream = stream.pipe(watch());
+		stream = stream
+			.pipe(watch());
 	}
 
 	return stream;
 };
 
-//==============================================================================
+(function() {
+	if (!watchChanges)
+	{
+		return;
+	}
+
+	// Creates the livereload server.
+	var server = tinylr();
+	server.listen(LIVERELOAD_PORT);
+
+	// Binds it to the gulp plugin.
+	livereload = livereload.bind(null, server);
+
+	// Binds the port to the embedlr plugin.
+	embedlr = embedlr.bind(null, {
+		port: LIVERELOAD_PORT,
+	})
+})();
+
+//====================================================================
 
 gulp.task('build-pages', function () {
 	return src('index.jade')
 		.pipe(jade())
-		.pipe(gulp.dest(DIST_DIR));
+		.pipe(embedlr())
+		.pipe(gulp.dest(DIST_DIR))
+		.pipe(livereload())
 });
 
 gulp.task('build-scripts', ['install-bower-components'], function () {
@@ -61,14 +88,17 @@ gulp.task('build-scripts', ['install-bower-components'], function () {
 		.pipe(browserify({
 			debug: !gulp.env.production,
 			transform: [
+				'browserify-plain-jade',
 				'debowerify',
 				'deamdify',
 			],
 		}))
+		.pipe(ngmin())
 		.pipe(uglify({
 			outSourceMaps: !gulp.env.production,
 		}))
-		.pipe(gulp.dest(DIST_DIR));
+		.pipe(gulp.dest(DIST_DIR))
+		.pipe(livereload());
 });
 
 gulp.task('build-styles', ['install-bower-components'], function () {
@@ -80,12 +110,14 @@ gulp.task('build-styles', ['install-bower-components'], function () {
 			],
 		}))
 		.pipe(csso())
-		.pipe(gulp.dest(DIST_DIR));
+		.pipe(gulp.dest(DIST_DIR))
+		.pipe(livereload());
 });
 
 gulp.task('copy-assets', ['install-bower-components'], function () {
 	return src('assets/**/*')
-		.pipe(gulp.dest(DIST_DIR));
+		.pipe(gulp.dest(DIST_DIR))
+		.pipe(livereload());
 });
 
 gulp.task('install-bower-components', function (done) {
@@ -96,7 +128,7 @@ gulp.task('install-bower-components', function (done) {
 		});
 });
 
-//------------------------------------------------------------------------------
+//--------------------------------------------------------------------
 
 gulp.task('build', [
 	'build-pages',
