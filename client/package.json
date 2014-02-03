@@ -30,7 +30,6 @@
     "gulp-less": "~1.2.0",
     "gulp-livereload": "~0.3.1",
     "gulp-mocha": "~0.4.1",
-    "gulp-ngmin": "~0.1.2",
     "gulp-uglify": "~0.2.0",
     "gulp-watch": "~0.5.0",
     "marked": "~0.3.1",

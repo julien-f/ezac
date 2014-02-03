@@ -7,7 +7,7 @@ html
 
 	body(ng-app = 'ezac')
 
-		nav.navbar.navbar-inverse.navbar-fixed-top(role = 'navigation'): .container
+		nav.navbar.navbar-inverse.navbar-fixed-top: .container
 
 			//- Brand and toggle get grouped for better mobile display.
 			.navbar-header
@@ -34,9 +34,9 @@ html
 
 					//- Main menu.
 					li.dropdown
-						a.dropdown-toggle.inverse
+						a.dropdown-toggle
 							i.fa.fa-th
-						ul.dropdown-menu.inverse
+						ul.dropdown-menu
 							li(ng-class = '{active: $uiRoute}', ui-route = '/')
 								a(ui-sref = 'home') Home
 							li(ng-class = '{active: $uiRoute}', ui-route = '/about')

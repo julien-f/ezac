@@ -12,7 +12,6 @@ var jade = require('gulp-jade');
 var less = require('gulp-less');
 var livereload = require('gulp-livereload');
 var mocha = require('gulp-mocha');
-var ngmin = require('gulp-ngmin');
 var tinylr = require('tiny-lr');
 var uglify = require('gulp-uglify');
 var watch = require('gulp-watch');
@@ -93,7 +92,6 @@ gulp.task('build-scripts', ['install-bower-components'], function () {
 				'deamdify',
 			],
 		}))
-		.pipe(ngmin())
 		.pipe(uglify({
 			outSourceMaps: !gulp.env.production,
 		}))

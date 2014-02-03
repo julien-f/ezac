@@ -1,0 +1,46 @@
+h1 Create an event
+
+form.form-horizontal(ng-submit = 'createEvent(name, description, active)')
+
+	//- .form-group(ng-if = '!authenticated')
+	//- 	label.control-label.col-sm-2 Email
+	//- 	.col-sm-10
+	//- 		input.form-control(
+	//- 			type = 'email'
+	//- 			placeholder= 'Email address'
+	//- 			ng-model = 'email'
+	//- 		)
+
+	.form-group
+		label.control-label.col-sm-2 Event name
+		.col-sm-10
+			input.form-control(
+				ng-model = 'name'
+				type = 'text'
+				required
+				placeholder = 'Event name'
+			)
+
+	.form-group
+		label.control-label.col-sm-2 Event description
+		.col-sm-10
+			textarea.form-control(
+				ng-model = 'description'
+				placeholder = 'Event description'
+				rows = 5
+				value = ''
+			)
+
+	.form-group
+		.col-sm-offset-2.col-sm-10
+			label.checkbox
+				input.form-control(
+					ng-model = 'active'
+					type = 'checkbox'
+					checked
+				)
+				| Active?
+
+	.form-group
+		.col-sm-offset-2.col-sm-10
+			button.btn.btn-default(type = 'submit') Create the event
