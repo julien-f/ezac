@@ -39,6 +39,8 @@ html
 						ul.dropdown-menu
 							li(ng-class = '{active: $uiRoute}', ui-route = '/')
 								a(ui-sref = 'home') Home
+							li(ng-class = '{active: $uiRoute}', ui-route = '/events/new')
+								a(ui-sref = 'new-event') New event
 							li(ng-class = '{active: $uiRoute}', ui-route = '/about')
 								a(ui-sref = 'about') About
 

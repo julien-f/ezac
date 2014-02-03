@@ -45,6 +45,14 @@ var restify = require('restify');
 				boolean: true,
 				describe: 'display the version number',
 			},
+			p: {
+				alias: 'port',
+				check: function (value) {
+					return (value > 0) && (value < 65536);
+				},
+				default: 80,
+				describe: 'port to use',
+			},
 		})
 		.argv;
 
@@ -68,8 +76,8 @@ var restify = require('restify');
 		'events',
 		'offers',
 		'users',
-	], function (collection) {
-		db[collection] = new fdb.Collection([__dirname, 'database', collection]);
+	], function (name) {
+		db[name] = new fdb.Collection([__dirname, 'database', name]);
 	});
 
 	// Automatically flushes the database when exiting.
@@ -84,7 +92,7 @@ var restify = require('restify');
 		// certificate: yield fs.readFile([__dirname, 'certificate.pem']),
 		// key: yield fs.readFile([__dirname, 'key.pem']),
 	});
-	server.listen(8080);
+	server.listen(options.port);
 
 	server
 
@@ -100,12 +108,12 @@ var restify = require('restify');
 
 
 		// Parses the query string: used by jsonp.
-		.use(restify.queryParser({
-			mapParams: false,
-		}))
+		// .use(restify.queryParser({
+		// 	mapParams: false,
+		// }))
 
-		// Adds support for JSONP.
-		.use(restify.jsonp())
+		// Adds support for JSONP, not used for now.
+		// .use(restify.jsonp())
 
 		// Compresses the response if possible.
 		.use(restify.gzipResponse())
@@ -124,15 +132,6 @@ var restify = require('restify');
 		// .use(restify.conditionalRequest())
 	;
 
-
-	// Serves static files (i.e. the client).
-	server.get(/.*/, restify.serveStatic({
-		default: 'index.html',
-
-		// FIXME: Unix paths.
-		directory: __dirname +'/../client/dist/',
-	}));
-
 	each(db, function (collection, name) {
 		server.get('/'+ name, function (req, res) {
 			collection.find().then(function (records) {
@@ -147,10 +146,9 @@ var restify = require('restify');
 		});
 
 		server.put('/'+ name +'/new', function (req, res) {
-			collection.insert(req.body).then(console.log);
-			// function (record) {
-			// 	res.send({id: record.id});
-			// });
+			collection.insert(req.body);
+			res.send(req.body.id);
+			// collection.flush(); // TODO: Necessary?
 		});
 
 		server.post('/'+ name +'/:id', function (req, res) {
@@ -164,4 +162,10 @@ var restify = require('restify');
 			collection.remove(req.params.id).then(console.log);
 		});
 	});
+
+	// Serves static files (i.e. the client).
+	server.get(/.*/, restify.serveStatic({
+		default: 'index.html',
+		directory: __dirname +'/../client/dist/',
+	}));
 })();
