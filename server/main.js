@@ -77,14 +77,12 @@ var restify = require('restify');
 		'offers',
 		'users',
 	], function (name) {
-		db[name] = new fdb.Collection([__dirname, 'database', name]);
-	});
+		var collection = new fdb.Collection([__dirname, 'database', name]);
 
-	// Automatically flushes the database when exiting.
-	process.on('exit', function () {
-		each(db, function (collection) {
-			collection.flush();
-		});
+		// Effectively creates the collection.
+		collection.flush();
+
+		db[name] = collection;
 	});
 
 	// Creates the HTTP/REST server.
@@ -133,33 +131,48 @@ var restify = require('restify');
 	;
 
 	each(db, function (collection, name) {
+		// Gets all items in the collection.
 		server.get('/'+ name, function (req, res) {
 			collection.find().then(function (records) {
 				res.send(records);
 			});
 		});
 
-		server.get('/'+ name +'/:id', function (req, res) {
-			collection.find(req.params.id).then(function (records) {
-				res.send(records);
-			});
+		// Gets one item from the collection.
+		server.get('/'+ name +'/:id', function (req, res, next) {
+			collection.find(req.params.id).then(
+				function (record) {
+					res.send(record);
+				},
+				function () {
+					next(new Error(req.url));
+				}
+			);
 		});
 
-		server.put('/'+ name +'/new', function (req, res) {
+		// Adds one item to the collection.
+		server.post('/'+ name, function (req, res) {
 			collection.insert(req.body);
 			res.send(req.body.id);
-			// collection.flush(); // TODO: Necessary?
+
+			collection.flush();
 		});
 
-		server.post('/'+ name +'/:id', function (req, res) {
-			collection.update(req.body).then(console.log);
-			// .then(function (result) {
+		// Replaces (updates) one item in the collection.
+		server.put('/'+ name +'/:id', function (req, res) {
+			req.body.id = req.params.id;
+			collection.update(req.body);
+			res.send(true);
 
-			// });
+			collection.flush();
 		});
 
+		// Deletes one item from the collection.
 		server.del('/'+ name +'/:id', function (req, res) {
-			collection.remove(req.params.id).then(console.log);
+			collection.remove(req.params.id);
+			res.send(true);
+
+			collection.flush();
 		});
 	});
 
