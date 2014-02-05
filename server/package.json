@@ -17,6 +17,7 @@
   "homepage": "https://github.com/julien-f/ezac",
   "dependencies": {
     "bluebird": "~1.0.1",
+    "ecstatic": "~0.4.13",
     "final-db": "~2.3.6",
     "final-fs": "~1.4.4",
     "handlebars": "~1.3.0",

@@ -17,6 +17,9 @@ var each;
 	each = lodash.each;
 })();
 
+// Static file serving.
+var ecstatic = require('ecstatic');
+
 // File system based noSQL database.
 var fdb = require('final-db');
 
@@ -177,8 +180,7 @@ var restify = require('restify');
 	});
 
 	// Serves static files (i.e. the client).
-	server.get(/.*/, restify.serveStatic({
-		default: 'index.html',
-		directory: __dirname +'/../client/dist/',
+	server.get(/.*/, ecstatic({
+		root: __dirname +'/../client/dist/',
 	}));
 })();
