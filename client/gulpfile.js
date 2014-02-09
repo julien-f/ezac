@@ -30,7 +30,7 @@ var src = function (pattern) {
 
 	if (pattern instanceof Array)
 	{
-		for (i = 0, n = pattern.length; i < n; ++i)
+		for (i = 0, n = pattern.length; i < n; i += 1)
 		{
 			pattern[i] = SRC_DIR +'/'+ pattern[i];
 		}
@@ -69,7 +69,7 @@ var src = function (pattern) {
 	// Binds the port to the embedlr plugin.
 	embedlr = embedlr.bind(null, {
 		port: LIVERELOAD_PORT,
-	})
+	});
 })();
 
 //====================================================================
@@ -79,7 +79,7 @@ gulp.task('build-pages', function () {
 		.pipe(jade())
 		.pipe(embedlr())
 		.pipe(gulp.dest(DIST_DIR))
-		.pipe(livereload())
+		.pipe(livereload());
 });
 
 gulp.task('build-scripts', ['install-bower-components'], function () {

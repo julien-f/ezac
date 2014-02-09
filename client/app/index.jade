@@ -24,7 +24,7 @@ html
 					span.icon-bar
 
 				//- Brand.
-				a.navbar-brand(ui-sref = 'home') Ezac
+				a.navbar-brand(ui-sref = 'list-events') Ezac
 
 			//- All navbar items are collapsed on mobile display.
 			.collapse.navbar-collapse(ng-class = '!navBarCollapsed && "in"')
@@ -35,13 +35,13 @@ html
 					//- Main menu.
 					li.dropdown
 						a.dropdown-toggle
-							i.fa.fa-th
+							i.glyphicon.glyphicon-th
 						ul.dropdown-menu
-							li(ng-class = '{active: $uiRoute}', ui-route = '/')
-								a(ui-sref = 'home') Home
-							li(ng-class = '{active: $uiRoute}', ui-route = '/events/new')
+							li(ui-sref-active = 'active')
+								a(ui-sref = 'list-events') Events
+							li(ui-sref-active = 'active')
 								a(ui-sref = 'new-event') New event
-							li(ng-class = '{active: $uiRoute}', ui-route = '/about')
+							li(ui-sref-active = 'active')
 								a(ui-sref = 'about') About
 
 		.container

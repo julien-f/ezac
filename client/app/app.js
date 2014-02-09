@@ -25,43 +25,47 @@ angular.module('ezac', [
 		'$stateProvider',
 		'$urlRouterProvider',
 		function (
-		$locationProvider,
-		$stateProvider,
-		$urlRouterProvider
-	) {
-		// Uses real URLs.
-		//$locationProvider.html5Mode(true);
+			$locationProvider,
+			$stateProvider,
+			$urlRouterProvider
+		) {
+			// Uses real URLs.
+			// $locationProvider.html5Mode(true);
 
-		// Redirects unmatched URLs to `/`.
-		$urlRouterProvider.otherwise('/');
+			// Redirects unmatched URLs to `/events`.
+			$urlRouterProvider.otherwise('/events');
 
-		// Sets up the different states for our module.
-		$stateProvider
-			.state('home', {
-				url: '/',
-				template: require('./home.jade'),
-			})
-			.state('about', {
-				url: '/about',
-				template: require('./about.jade'),
-			})
-			.state('new-event', {
-				url: '/events/new',
-				controller: 'new-event',
-				template: require('./new-event.jade'),
-			})
-		;
-	}])
+			// Sets up the different states for our module.
+			$stateProvider
+				.state('list-events', {
+					url: '/events',
+					controller: 'list-events',
+					template: require('./list-events.jade'),
+				})
+				.state('about', {
+					url: '/about',
+					template: require('./about.jade'),
+				})
+				.state('new-event', {
+					url: '/events/new',
+					controller: 'new-event',
+					template: require('./new-event.jade'),
+				})
+			;
+		}
+	])
 	.service('events', ['$resource', function ($resource) {
-		return $resource('events/:id.json', {}, {
+		return $resource('events/:id', {}, {
 			all: {
 				method: 'GET',
 				isArray: true,
 			},
-			create: { method: 'PUT' },
+			create: { method: 'POST' },
+			delete: { method: 'DELETE' },
 			get: { method: 'GET' },
-			save: { method: 'POST' },
+			save: { method: 'PUT' },
 		});
 	}])
+	.controller('list-events', require('./list-events'))
 	.controller('new-event', require('./new-event'))
 ;

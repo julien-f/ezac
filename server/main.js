@@ -135,9 +135,10 @@ var restify = require('restify');
 
 	each(db, function (collection, name) {
 		// Gets all items in the collection.
-		server.get('/'+ name, function (req, res) {
+		server.get('/'+ name, function (req, res, next) {
 			collection.find().then(function (records) {
 				res.send(records);
+				next();
 			});
 		});
 
@@ -146,34 +147,39 @@ var restify = require('restify');
 			collection.find(req.params.id).then(
 				function (record) {
 					res.send(record);
+					next();
 				},
-				function () {
+				function (error) {
+					console.log(error);
 					next(new Error(req.url));
 				}
 			);
 		});
 
 		// Adds one item to the collection.
-		server.post('/'+ name, function (req, res) {
+		server.post('/'+ name, function (req, res, next) {
 			collection.insert(req.body);
 			res.send(req.body.id);
+			next();
 
 			collection.flush();
 		});
 
 		// Replaces (updates) one item in the collection.
-		server.put('/'+ name +'/:id', function (req, res) {
+		server.put('/'+ name +'/:id', function (req, res, next) {
 			req.body.id = req.params.id;
 			collection.update(req.body);
 			res.send(true);
+			next();
 
 			collection.flush();
 		});
 
 		// Deletes one item from the collection.
-		server.del('/'+ name +'/:id', function (req, res) {
+		server.del('/'+ name +'/:id', function (req, res, next) {
 			collection.remove(req.params.id);
 			res.send(true);
+			next();
 
 			collection.flush();
 		});

@@ -2,15 +2,6 @@ h1 Create an event
 
 form.form-horizontal(ng-submit = 'createEvent(name, description, active)')
 
-	//- .form-group(ng-if = '!authenticated')
-	//- 	label.control-label.col-sm-2 Email
-	//- 	.col-sm-10
-	//- 		input.form-control(
-	//- 			type = 'email'
-	//- 			placeholder= 'Email address'
-	//- 			ng-model = 'email'
-	//- 		)
-
 	.form-group
 		label.control-label.col-sm-2 Event name
 		.col-sm-10
@@ -19,6 +10,31 @@ form.form-horizontal(ng-submit = 'createEvent(name, description, active)')
 				type = 'text'
 				required
 				placeholder = 'Event name'
+			)
+
+	.form-group
+		label.control-label.col-sm-2 Date
+		.col-sm-3: .input-group
+			input.form-control(
+				ng-model = 'date'
+				type = 'text'
+				required
+				datepicker-popup = 'dd MMMM yyyy'
+				day-format = 'd'
+				is-open = 'datePickerOpened'
+				min = '""'
+				starting-day = '1'
+			)
+			span.input-group-btn: button.btn.btn-default(
+				ng-click='openDatePicker($event)'
+				type = 'button'
+			)
+				i.glyphicon.glyphicon-calendar
+		.col-sm-7
+			timepicker(
+				ng-model = 'time'
+				show-meridian = 'false'
+				minute-step = '15'
 			)
 
 	.form-group
@@ -37,7 +53,6 @@ form.form-horizontal(ng-submit = 'createEvent(name, description, active)')
 				input.form-control(
 					ng-model = 'active'
 					type = 'checkbox'
-					checked
 				)
 				| Active?
 

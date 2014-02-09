@@ -1,0 +1,11 @@
+h1 Events
+
+ul(ng-if = 'events.length')
+	li(ng-repeat = 'event in events track by event.id')
+		a(ui-sref = 'event({id: event.id}') {{event.name}}
+
+p.text-muted(ng-if = '!events.length').
+	No existing events.
+
+p
+	a.btn.btn-default(ui-sref = 'new-event') Create a new event
