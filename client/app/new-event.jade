@@ -39,18 +39,20 @@ form.form-horizontal(ng-submit = 'createEvent(name, description, active)')
 
 	.form-group
 		label.control-label.col-sm-2 Event description
-		.col-sm-10
+		.col-sm-5
 			textarea.form-control(
 				ng-model = 'description'
 				placeholder = 'Event description'
 				rows = 5
 				value = ''
 			)
+		.col-sm-5.panel.panel-default
+			.panel-body(ezac-bind-html = "{{descriptionPreview}}")
 
 	.form-group
 		.col-sm-offset-2.col-sm-10
 			label.checkbox
-				input.form-control(
+				input(
 					ng-model = 'active'
 					type = 'checkbox'
 				)

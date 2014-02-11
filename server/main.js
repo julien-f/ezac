@@ -50,20 +50,24 @@ var restify = require('restify');
 			},
 			p: {
 				alias: 'port',
-				check: function (value) {
-					return (value > 0) && (value < 65536);
-				},
 				default: 80,
 				describe: 'port to use',
 			},
 		})
-		.argv;
+		.check(function (options) {
+			if (options.help)
+			{
+				throw '';
+			}
 
-	if (options.help)
-	{
-		optimist.showHelp();
-		return;
-	}
+			var port = options.port;
+			if (!((0 < port) && (port < 65536) && (0 === port % 1)))
+			{
+				throw '--port should be an integer between 0 and 65535';
+			}
+		})
+		.argv
+	;
 
 	if (options.version)
 	{
@@ -80,12 +84,7 @@ var restify = require('restify');
 		'offers',
 		'users',
 	], function (name) {
-		var collection = new fdb.Collection([__dirname, 'database', name]);
-
-		// Effectively creates the collection.
-		collection.flush();
-
-		db[name] = collection;
+		db[name] = new fdb.Collection([__dirname, 'database', name]);
 	});
 
 	// Creates the HTTP/REST server.

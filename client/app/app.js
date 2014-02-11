@@ -54,6 +54,19 @@ angular.module('ezac', [
 			;
 		}
 	])
+	.directive('ezacBindHtml', function () {
+		return {
+			restrict: 'A',
+			scope: {
+				ezacBindHtml: '@',
+			},
+			link: function ($scope, $el, $attrs) {
+				$attrs.$observe('ezacBindHtml', function (value) {
+					$el.html(value);
+				});
+			},
+		};
+	})
 	.service('events', ['$resource', function ($resource) {
 		return $resource('events/:id', {}, {
 			all: {
@@ -65,6 +78,25 @@ angular.module('ezac', [
 			get: { method: 'GET' },
 			save: { method: 'PUT' },
 		});
+	}])
+	.service('debounce', ['$timeout', function ($timeout) {
+		return function (fn, delay) {
+			var promise;
+			fn = (function (fn) {
+				return function () {
+					promise = null;
+					fn();
+				};
+			})(fn);
+
+			return function () {
+				if (promise)
+				{
+					$timeout.cancel(promise);
+				}
+				promise = $timeout(fn, delay);
+			};
+		};
 	}])
 	.controller('list-events', require('./list-events'))
 	.controller('new-event', require('./new-event'))
