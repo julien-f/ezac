@@ -23,9 +23,6 @@ var ecstatic = require('ecstatic');
 // File system based noSQL database.
 var fdb = require('final-db');
 
-// File system with promises.
-var fs = require('final-fs');
-
 // Options parsing.
 var optimist = require('optimist');
 
@@ -148,9 +145,8 @@ var restify = require('restify');
 					res.send(record);
 					next();
 				},
-				function (error) {
-					console.log(error);
-					next(new Error(req.url));
+				function () {
+					next(new restify.ResourceNotFoundError(req.path()));
 				}
 			);
 		});
