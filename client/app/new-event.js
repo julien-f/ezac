@@ -21,9 +21,9 @@ module.exports = ['$scope', '$state', 'debounce', 'events',
 				name: name,
 				description: description,
 				active: active,
-			}, function () {
-				$state.go('list-events');
 			});
+
+			$state.go('list-events');
 		};
 
 		$scope.openDatePicker = function ($event) {

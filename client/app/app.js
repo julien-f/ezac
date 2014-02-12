@@ -72,29 +72,46 @@ angular.module('ezac', [
 			},
 		};
 	})
-	.service('events', ['$resource', function ($resource) {
-		var resource = $resource('events/:id', {}, {
-			all: {
-				method: 'GET',
-				isArray: true,
-			},
-			create: { method: 'POST' },
-			delete: { method: 'DELETE' },
-			get: { method: 'GET' },
-			save: { method: 'PUT' },
-		});
-
-		var events = [];
-		var all = resource.all;
-		resource.all = function () {
-			all({}, function (entries) {
-				events.length = 0;
-				events.push.apply(events, entries);
+	.service('ezacCollectionFactory', ['$resource', function ($resource) {
+		return function (name) {
+			var adapter = $resource(name +'/:id', {}, {
+				all: {
+					method: 'GET',
+					isArray: true,
+				},
+				create: { method: 'POST' },
+				delete: { method: 'DELETE' },
+				get: { method: 'GET' },
+				save: { method: 'PUT' },
 			});
-			return events;
-		};
 
-		return resource;
+			var collection = [];
+
+			return {
+				all: function () {
+					adapter.all(function (all) {
+						collection.length = 0;
+						collection.push.apply(collection, all);
+					});
+					return collection;
+				},
+				create: function (properties) {
+					adapter.create(properties);
+				},
+				delete: function (id) {
+					adapter.delete({id: id});
+				},
+				get: function (id) {
+					adapter.get(id);
+				},
+				save: function (id) {
+					adapter.save(id);
+				},
+			};
+		};
+	}])
+	.service('events', ['ezacCollectionFactory', function (factory) {
+		return factory('events');
 	}])
 	.service('debounce', ['$timeout', function ($timeout) {
 		return function (fn, delay) {
