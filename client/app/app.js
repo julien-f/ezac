@@ -39,7 +39,7 @@ angular.module('ezac', [
 			$stateProvider
 				.state('list-events', {
 					url: '/events',
-					controller: 'list-events',
+					controller: require('./list-events'),
 					template: require('./list-events.jade'),
 				})
 				.state('about', {
@@ -48,8 +48,13 @@ angular.module('ezac', [
 				})
 				.state('new-event', {
 					url: '/events/new',
-					controller: 'new-event',
+					controller: require('./new-event'),
 					template: require('./new-event.jade'),
+				})
+				.state('event', {
+					url: '/events/:id',
+					controller: require('./show-event'),
+					template: require('./show-event.jade'),
 				})
 			;
 		}
@@ -98,6 +103,4 @@ angular.module('ezac', [
 			};
 		};
 	}])
-	.controller('list-events', require('./list-events'))
-	.controller('new-event', require('./new-event'))
 ;

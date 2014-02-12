@@ -11,7 +11,6 @@ module.exports = ['$scope', '$state', 'debounce', 'events',
 		$scope.active = true;
 
 		var updateDescriptionPreview = function () {
-			console.log('marked');
 			var desc = $scope.description;
 			$scope.descriptionPreview = desc ? marked(desc) : '';
 		};
