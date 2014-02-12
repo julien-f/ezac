@@ -86,6 +86,9 @@ var restify = require('restify');
 
 	// Creates the HTTP/REST server.
 	var server = restify.createServer({
+		name: 'Ezac',
+		version: '1.0.0',
+
 		// certificate: yield fs.readFile([__dirname, 'certificate.pem']),
 		// key: yield fs.readFile([__dirname, 'key.pem']),
 	});
@@ -101,8 +104,7 @@ var restify = require('restify');
 		// .use(restify.authorizationParser())
 
 		// Checks for clock skew: used by throttle?
-		// .use(restify.dateParser())
-
+		.use(restify.dateParser())
 
 		// Parses the query string: used by jsonp.
 		// .use(restify.queryParser({
@@ -125,8 +127,8 @@ var restify = require('restify');
 			ip: true,
 		}))
 
-		// TODO: Handles last-modified, ETags, etc.
-		// .use(restify.conditionalRequest())
+		// Handles last-modified, ETags, etc.
+		.use(restify.conditionalRequest())
 	;
 
 	each(db, function (collection, name) {
@@ -138,10 +140,11 @@ var restify = require('restify');
 			});
 		});
 
-		// Gets one item from the collection.
+		// Gets one item from the collection (TODO: implements HEAD).
 		server.get('/'+ name +'/:id', function (req, res, next) {
 			collection.find(req.params.id).then(
 				function (record) {
+					res.header('last-Modified', new Date(record.updatedAt));
 					res.send(record);
 					next();
 				},
