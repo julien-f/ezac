@@ -73,7 +73,7 @@ angular.module('ezac', [
 		};
 	})
 	.service('events', ['$resource', function ($resource) {
-		return $resource('events/:id', {}, {
+		var resource = $resource('events/:id', {}, {
 			all: {
 				method: 'GET',
 				isArray: true,
@@ -83,6 +83,18 @@ angular.module('ezac', [
 			get: { method: 'GET' },
 			save: { method: 'PUT' },
 		});
+
+		var events = [];
+		var all = resource.all;
+		resource.all = function () {
+			all({}, function (entries) {
+				events.length = 0;
+				events.push.apply(events, entries);
+			});
+			return events;
+		};
+
+		return resource;
 	}])
 	.service('debounce', ['$timeout', function ($timeout) {
 		return function (fn, delay) {

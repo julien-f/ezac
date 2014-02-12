@@ -1,7 +1,7 @@
 h1 Events
 
 ul(ng-if = 'events.length')
-	li(ng-repeat = 'event in events track by event.id')
+	li(ng-repeat = 'event in events | orderBy:\'name\' track by event.id')
 		a(ui-sref = 'event({id: event.id})') {{event.name}}
 
 p.text-muted(ng-if = '!events.length').
