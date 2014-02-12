@@ -177,7 +177,7 @@ var restify = require('restify');
 
 		// Deletes one item from the collection.
 		server.del('/'+ name +'/:id', function (req, res, next) {
-			collection.remove(req.params.id);
+			collection.remove({id: req.params.id});
 			res.send(true);
 			next();
 

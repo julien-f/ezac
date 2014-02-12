@@ -102,10 +102,10 @@ angular.module('ezac', [
 					adapter.delete({id: id});
 				},
 				get: function (id) {
-					adapter.get(id);
+					return adapter.get({id: id});
 				},
-				save: function (id) {
-					adapter.save(id);
+				save: function (properties) {
+					adapter.save(properties);
 				},
 			};
 		};

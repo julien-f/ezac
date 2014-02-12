@@ -2,7 +2,9 @@ h1 Events
 
 ul(ng-if = 'events.length')
 	li(ng-repeat = 'event in events | orderBy:\'name\' track by event.id')
-		a(ui-sref = 'event({id: event.id})') {{event.name}}
+		a(ui-sref = 'event({id: event.id})') {{event.name}} &nbsp;
+		button.btn.btn-default.btn-xs(ng-click = 'delete(event.id)')
+			i.glyphicon.glyphicon-times
 
 p.text-muted(ng-if = '!events.length').
 	No existing events.

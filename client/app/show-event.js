@@ -13,7 +13,7 @@ module.exports = ['$scope', '$stateParams', 'events',
 		var event = events.get(id);
 		$scope.$watch(function () {
 			return event;
-		}, function (event) {
+		}, function () {
 			$scope.active = event.active;
 			$scope.description = event.description && marked(event.description);
 			$scope.name = event.name;
