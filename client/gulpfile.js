@@ -35,14 +35,21 @@ var src = (function () {
 		};
 	}
 
-	// Requires the gulp-watch only when necessary (and only once).
+	// Requires dependencies only when necessary (and only once).
 	return function () {
+		// gulp-plumber prevents streams from disconnecting when errors.
+		// See: https://gist.github.com/floatdrop/8269868#file-thoughts-md
+		var plumber = require('gulp-plumber');
+
 		var watch = require('gulp-watch');
 
 		src = function (pattern) {
-			return gulp.src(SRC_DIR +'/'+ pattern, {
+			return watch({
+				glob: SRC_DIR +'/'+ pattern,
 				base: SRC_DIR,
-			}).pipe(watch());
+			}).pipe(plumber({
+				errorHandler: console.error,
+			}));
 		};
 
 		return src.apply(this, arguments);
