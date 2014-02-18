@@ -2,17 +2,7 @@
 
 //====================================================================
 
-var bower = require('bower');
 var gulp = require('gulp');
-
-var browserify = require('gulp-browserify');
-var clean = require('gulp-clean');
-var csso = require('gulp-csso');
-var embedlr = require('gulp-embedlr');
-var jade = require('gulp-jade');
-var less = require('gulp-less');
-var mocha = require('gulp-mocha');
-var uglify = require('gulp-uglify');
 
 //====================================================================
 
@@ -45,12 +35,17 @@ var src = (function () {
 		};
 	}
 
-	var watch = require('gulp-watch');
+	// Requires the gulp-watch only when necessary (and only once).
+	return function () {
+		var watch = require('gulp-watch');
 
-	return function (pattern) {
-		return gulp.src(SRC_DIR +'/'+ pattern, {
-			base: SRC_DIR,
-		}).pipe(watch());
+		src = function (pattern) {
+			return gulp.src(SRC_DIR +'/'+ pattern, {
+				base: SRC_DIR,
+			}).pipe(watch());
+		};
+
+		return src.apply(this, arguments);
 	};
 })();
 
@@ -86,12 +81,12 @@ var dest = (function () {
 
 gulp.task('build-pages', function () {
 	var stream = src('index.jade')
-		.pipe(jade())
+		.pipe(require('gulp-jade')())
 	;
 
 	if (!PRODUCTION)
 	{
-		stream = stream.pipe(embedlr({
+		stream = stream.pipe(require('gulp-embedlr')({
 			port: LIVERELOAD,
 		}));
 	}
@@ -101,7 +96,7 @@ gulp.task('build-pages', function () {
 
 gulp.task('build-scripts', ['install-bower-components'], function () {
 	var stream = src('app.js')
-		.pipe(browserify({
+		.pipe(require('gulp-browserify')({
 			debug: !PRODUCTION,
 			transform: [
 				'browserify-plain-jade',
@@ -113,7 +108,7 @@ gulp.task('build-scripts', ['install-bower-components'], function () {
 
 	if (PRODUCTION)
 	{
-		stream = stream.pipe(uglify());
+		stream = stream.pipe(require('gulp-uglify')());
 	}
 
 	return stream.pipe(dest());
@@ -121,7 +116,7 @@ gulp.task('build-scripts', ['install-bower-components'], function () {
 
 gulp.task('build-styles', ['install-bower-components'], function () {
 	var stream = src('app.less')
-		.pipe(less({
+		.pipe(require('gulp-less')({
 			paths: [
 				BOWER_DIR +'/font-awesome/less',
 				BOWER_DIR +'/strapless/less',
@@ -131,7 +126,7 @@ gulp.task('build-styles', ['install-bower-components'], function () {
 
 	if (PRODUCTION)
 	{
-		stream = stream.pipe(csso());
+		stream = stream.pipe(require('gulp-csso')());
 	}
 
 	return stream.pipe(dest());
@@ -143,7 +138,7 @@ gulp.task('copy-assets', ['install-bower-components'], function () {
 });
 
 gulp.task('install-bower-components', function (done) {
-	bower.commands.install()
+	require('bower').commands.install()
 		.on('error', done)
 		.on('end', function () {
 			done();
@@ -166,12 +161,12 @@ gulp.task('clean', function () {
 	], {
 		read: false,
 	})
-		.pipe(clean());
+		.pipe(require('gulp-clean')());
 });
 
 gulp.task('test', function () {
 	return gulp.src(SRC_DIR +'/**/*.spec.js')
-		.pipe(mocha({
+		.pipe(require('gulp-mocha')({
 			reporter: 'spec'
 		}));
 });
