@@ -172,13 +172,15 @@ gulp.task('check-scripts', function () {
 });
 
 gulp.task('clean', function () {
-	return gulp.src([
-		BOWER_DIR,
-		DIST_DIR,
-	], {
+	return gulp.src(DIST_DIR, {
 		read: false,
-	})
-		.pipe(require('gulp-clean')());
+	}).pipe(require('gulp-clean')());
+});
+
+gulp.task('distclean', ['clean'], function () {
+	return gulp.src(BOWER_DIR, {
+		read: false,
+	}).pipe(require('gulp-clean')());
 });
 
 gulp.task('test', function () {
