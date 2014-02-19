@@ -161,6 +161,16 @@ gulp.task('build', [
 	'copy-assets',
 ]);
 
+gulp.task('check-scripts', function () {
+	var jshint = require('gulp-jshint');
+
+	return gulp.src(SRC_DIR +'/**/*.js')
+		// .pipe(require('gulp-jsvalidate')())
+		.pipe(jshint())
+		.pipe(jshint.reporter('jshint-stylish'))
+	;
+});
+
 gulp.task('clean', function () {
 	return gulp.src([
 		BOWER_DIR,
