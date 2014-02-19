@@ -1,3 +1,9 @@
+
+[![Dependency Status](https://david-dm.org/julien-f/ezac.svg?theme=shields.io)](https://david-dm.org/julien-f/ezac)
+[![devDependency Status](https://david-dm.org/julien-f/ezac/dev-status.svg?theme=shields.io)](https://david-dm.org/julien-f/ezac#info=devDependencies)
+
+___
+
 # Introduction
 
 **Work in progress: do not work!!!**
