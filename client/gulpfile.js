@@ -101,6 +101,7 @@ gulp.task('build-pages', function () {
 	return stream.pipe(dest());
 });
 
+// TODO: Use watchify (https://github.com/substack/watchify).
 gulp.task('build-scripts', ['install-bower-components'], function () {
 	var stream = src('app.js')
 		.pipe(require('gulp-browserify')({
@@ -165,7 +166,7 @@ gulp.task('check-scripts', function () {
 	var jshint = require('gulp-jshint');
 
 	return gulp.src(SRC_DIR +'/**/*.js')
-		// .pipe(require('gulp-jsvalidate')())
+		.pipe(require('gulp-jsvalidate')())
 		.pipe(jshint())
 		.pipe(jshint.reporter('jshint-stylish'))
 	;

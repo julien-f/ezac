@@ -28,6 +28,7 @@
     "gulp-embedlr": "~0.5.2",
     "gulp-jade": "~0.4.2",
     "gulp-jshint": "~1.4.2",
+    "gulp-jsvalidate": "0.1.1",
     "gulp-less": "~1.2.1",
     "gulp-livereload": "~1.1.1",
     "gulp-mocha": "~0.4.1",
