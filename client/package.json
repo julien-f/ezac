@@ -22,13 +22,13 @@
     "deamdify": "~0.1.1",
     "debowerify": "~0.6.0",
     "gulp": "~3.5.2",
-    "gulp-browserify": "~0.4.5",
+    "gulp-browserify": "~0.4.6",
     "gulp-clean": "~0.2.4",
     "gulp-csso": "~0.2.3",
     "gulp-embedlr": "~0.5.2",
     "gulp-jade": "~0.4.2",
     "gulp-jshint": "~1.4.2",
-    "gulp-jsvalidate": "0.1.1",
+    "gulp-jsvalidate": "~0.1.1",
     "gulp-less": "~1.2.1",
     "gulp-livereload": "~1.1.1",
     "gulp-mocha": "~0.4.1",
@@ -37,8 +37,8 @@
     "gulp-watch": "~0.5.0",
     "jshint-stylish": "~0.1.5",
     "marked": "~0.3.1",
-    "minimist": "0.0.7",
-    "stream-combiner": "0.0.4",
-    "tiny-lr": "0.0.5"
+    "minimist": "~0.0.7",
+    "stream-combiner": "~0.0.4",
+    "tiny-lr": "~0.0.5"
   }
 }
