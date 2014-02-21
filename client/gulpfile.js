@@ -146,7 +146,12 @@ gulp.task('copy-assets', ['install-bower-components'], function () {
 });
 
 gulp.task('install-bower-components', function (done) {
-	require('bower').commands.install()
+	var bower = require('bower');
+
+	bower.config.cwd = __dirname;
+	bower.config.directory = require('path').relative(__dirname, BOWER_DIR);
+
+	bower.commands.install()
 		.on('error', done)
 		.on('end', function () {
 			done();
