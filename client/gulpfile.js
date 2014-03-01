@@ -16,9 +16,27 @@ var options = require('minimist')(process.argv, {
 
 //====================================================================
 
-var BOWER_DIR = __dirname +'/bower_components';
 var DIST_DIR = __dirname +'/dist';
 var SRC_DIR = __dirname +'/app';
+
+// Bower directory is read from its configuration.
+var BOWER_DIR = (function () {
+  var cfg;
+
+  try
+  {
+    cfg = JSON.parse(require('fs').readFileSync('./.bowerrc'));
+  }
+  catch (error)
+  {
+    cfg = {};
+  }
+
+  cfg.cwd || (cfg.cwd = __dirname);
+  cfg.directory || (cfg.directory = 'bower_components');
+
+  return cfg.cwd +'/'+ cfg.directory;
+})();
 
 var PRODUCTION = options.production;
 var LIVERELOAD = 46417;
