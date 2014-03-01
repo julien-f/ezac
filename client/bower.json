@@ -18,7 +18,7 @@
     "angular": "1.2.13",
     "angular-resource": "1.2.13",
     "angular-ui-bootstrap-bower": "0.10.0",
-    "angular-ui-router": "0.2.8-bowratic-tedium",
+    "angular-ui-router": "0.2.9",
     "angular-ui-utils": "0.1.1",
     "font-awesome": "4.0.3",
     "strapless": "3.1.1"
