@@ -84,9 +84,6 @@ var dest = (function () {
 
 	// Creates the server only when necessary (and only once).
 	return function () {
-		var lrserver = require('tiny-lr')();
-		lrserver.listen(LIVERELOAD);
-
 		var livereload = require('gulp-livereload');
 
 		var combine = require('stream-combiner');
@@ -94,7 +91,7 @@ var dest = (function () {
 		dest = function () {
 			return combine(
 				gulp.dest(DIST_DIR),
-				livereload(lrserver)
+				livereload(LIVERELOAD)
 			);
 		};
 
