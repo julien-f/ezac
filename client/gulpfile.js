@@ -3,6 +3,7 @@
 //====================================================================
 
 var gulp = require('gulp');
+var $ = require('gulp-load-plugins')();
 
 //====================================================================
 
@@ -21,27 +22,66 @@ var SRC_DIR = __dirname +'/app';
 
 // Bower directory is read from its configuration.
 var BOWER_DIR = (function () {
-  var cfg;
+	var cfg;
 
-  try
-  {
-    cfg = JSON.parse(require('fs').readFileSync('./.bowerrc'));
-  }
-  catch (error)
-  {
-    cfg = {};
-  }
+	try
+	{
+		cfg = JSON.parse(require('fs').readFileSync('./.bowerrc'));
+	}
+	catch (error)
+	{
+		cfg = {};
+	}
 
-  cfg.cwd || (cfg.cwd = __dirname);
-  cfg.directory || (cfg.directory = 'bower_components');
+	cfg.cwd || (cfg.cwd = __dirname);
+	cfg.directory || (cfg.directory = 'bower_components');
 
-  return cfg.cwd +'/'+ cfg.directory;
+	return cfg.cwd +'/'+ cfg.directory;
 })();
 
 var PRODUCTION = options.production;
 var LIVERELOAD = 46417;
 
 //--------------------------------------------------------------------
+
+// var browserify = function () {
+// 	if (PRODUCTION)
+// 	{
+// 		browserify = require('gulp-browserify');
+// 		return browserify.apply(this, arguments);
+// 	}
+
+// 	browfunction (options) {
+// 	var watchify = new require('watchify')();
+
+// 	return require('through2').obj(function (file, enc, done) {
+
+// 	});
+// };
+
+var combine = function () {
+	combine = require('stream-combiner');
+	return combine.apply(this, arguments);
+};
+
+var concat = function () {
+	concat = require('event-stream').concat;
+	return concat.apply(this, arguments);
+};
+
+var noop = function () {
+	var stream = new require('stream')();
+
+	noop = function () {
+		return stream;
+	};
+
+	return noop.apply(this, arguments);
+};
+
+var gIf = function (cond, then, otherwise) {
+	return cond ? then : otherwise || noop();
+};
 
 var src = (function () {
 	if (PRODUCTION)
@@ -53,24 +93,15 @@ var src = (function () {
 		};
 	}
 
-	// Requires dependencies only when necessary (and only once).
-	return function () {
-		// gulp-plumber prevents streams from disconnecting when errors.
-		// See: https://gist.github.com/floatdrop/8269868#file-thoughts-md
-		var plumber = require('gulp-plumber');
-
-		var watch = require('gulp-watch');
-
-		src = function (pattern) {
-			return watch({
-				glob: SRC_DIR +'/'+ pattern,
-				base: SRC_DIR,
-			}).pipe(plumber({
-				errorHandler: console.error,
-			}));
-		};
-
-		return src.apply(this, arguments);
+	// gulp-plumber prevents streams from disconnecting when errors.
+	// See: https://gist.github.com/floatdrop/8269868#file-thoughts-md
+	return function (pattern) {
+		return $.watch({
+			glob: SRC_DIR +'/'+ pattern,
+			base: SRC_DIR,
+		}).pipe($.plumber({
+			errorHandler: console.error,
+		}));
 	};
 })();
 
@@ -82,44 +113,30 @@ var dest = (function () {
 		};
 	}
 
-	// Creates the server only when necessary (and only once).
 	return function () {
-		var livereload = require('gulp-livereload');
-
-		var combine = require('stream-combiner');
-
-		dest = function () {
-			return combine(
-				gulp.dest(DIST_DIR),
-				livereload(LIVERELOAD)
-			);
-		};
-
-		return dest();
+		return combine(
+			gulp.dest(DIST_DIR),
+			$.livereload(LIVERELOAD)
+		);
 	};
 })();
 
 //====================================================================
 
 gulp.task('build-pages', function () {
-	var stream = src('index.jade')
-		.pipe(require('gulp-jade')())
-	;
-
-	if (!PRODUCTION)
-	{
-		stream = stream.pipe(require('gulp-embedlr')({
+	return src('index.jade')
+		.pipe($.jade())
+		.pipe(gIf(!PRODUCTION, $.embedlr({
 			port: LIVERELOAD,
-		}));
-	}
-
-	return stream.pipe(dest());
+		})))
+		.pipe(dest())
+	;
 });
 
 // TODO: Use watchify (https://github.com/substack/watchify).
 gulp.task('build-scripts', ['install-bower-components'], function () {
-	var stream = src('app.js')
-		.pipe(require('gulp-browserify')({
+	return src('app.js')
+		.pipe($.browserify({
 			debug: !PRODUCTION,
 			transform: [
 				'browserify-plain-jade',
@@ -127,50 +144,37 @@ gulp.task('build-scripts', ['install-bower-components'], function () {
 				'deamdify',
 			],
 		}))
+		.pipe(gIf(PRODUCTION, $.uglify()))
+		.pipe(dest())
 	;
-
-	if (PRODUCTION)
-	{
-		stream = stream.pipe(require('gulp-uglify')());
-	}
-
-	return stream.pipe(dest());
 });
 
 gulp.task('build-styles', ['install-bower-components'], function () {
-	var stream = src('app.less')
-		.pipe(require('gulp-less')({
+	return src('app.less')
+		.pipe($.less({
 			paths: [
 				BOWER_DIR +'/font-awesome/less',
 				BOWER_DIR +'/strapless/less',
 			],
 		}))
+		.pipe(gIf(PRODUCTION, $.csso()))
+		.pipe(dest())
 	;
-
-	if (PRODUCTION)
-	{
-		stream = stream.pipe(require('gulp-csso')());
-	}
-
-	return stream.pipe(dest());
 });
 
 gulp.task('copy-assets', ['install-bower-components'], function () {
 	return src('assets/**/*')
-		.pipe(dest());
+		.pipe(dest())
+	;
 });
 
 gulp.task('install-bower-components', function (done) {
-	var bower = require('bower');
-
-	bower.config.cwd = __dirname;
-	bower.config.directory = require('path').relative(__dirname, BOWER_DIR);
-
-	bower.commands.install()
+	require('bower').commands.install()
 		.on('error', done)
 		.on('end', function () {
 			done();
-		});
+		})
+	;
 });
 
 //--------------------------------------------------------------------
@@ -183,32 +187,31 @@ gulp.task('build', [
 ]);
 
 gulp.task('check-scripts', function () {
-	var jshint = require('gulp-jshint');
-
 	return gulp.src(SRC_DIR +'/**/*.js')
-		.pipe(require('gulp-jsvalidate')())
-		.pipe(jshint())
-		.pipe(jshint.reporter('jshint-stylish'))
+		.pipe($.jsvalidate())
+		.pipe($.jshint())
+		.pipe($.jshint.reporter('jshint-stylish'))
 	;
 });
 
 gulp.task('clean', function () {
 	return gulp.src(DIST_DIR, {
 		read: false,
-	}).pipe(require('gulp-clean')());
+	}).pipe($.clean());
 });
 
 gulp.task('distclean', ['clean'], function () {
 	return gulp.src(BOWER_DIR, {
 		read: false,
-	}).pipe(require('gulp-clean')());
+	}).pipe($.clean());
 });
 
 gulp.task('test', function () {
 	return gulp.src(SRC_DIR +'/**/*.spec.js')
-		.pipe(require('gulp-mocha')({
+		.pipe($.mocha({
 			reporter: 'spec'
-		}));
+		}))
+	;
 });
 
 //------------------------------------------------------------------------------
