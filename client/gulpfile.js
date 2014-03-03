@@ -70,7 +70,9 @@ var concat = function () {
 };
 
 var noop = function () {
-	var stream = new require('stream')();
+	var stream = new require('stream').PassThrough({
+		objectMode: true
+	});
 
 	noop = function () {
 		return stream;
