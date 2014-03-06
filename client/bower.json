@@ -15,8 +15,8 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "1.2.13",
-    "angular-resource": "1.2.13",
+    "angular": "1.2.14",
+    "angular-resource": "1.2.14",
     "angular-ui-bootstrap-bower": "0.10.0",
     "angular-ui-router": "0.2.9",
     "angular-ui-utils": "0.1.1",
