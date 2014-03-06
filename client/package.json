@@ -17,19 +17,20 @@
   "homepage": "https://github.com/julien-f/ezac",
   "devDependencies": {
     "bower": "~1.2.8",
+    "browserify": "^3.32.0",
     "browserify-plain-jade": "~0.2.0",
     "chai": "~1.9.0",
     "deamdify": "~0.1.1",
     "debowerify": "~0.6.0",
-    "gulp": "~3.5.2",
-    "gulp-browserify": "~0.4.6",
+    "event-stream": "^3.1.0",
+    "gulp": "^3.5.5",
     "gulp-clean": "~0.2.4",
     "gulp-csso": "~0.2.3",
     "gulp-embedlr": "~0.5.2",
     "gulp-jade": "~0.4.2",
     "gulp-jshint": "~1.5.0",
     "gulp-jsvalidate": "~0.1.1",
-    "gulp-less": "~1.2.1",
+    "gulp-less": "^1.2.2",
     "gulp-livereload": "~1.2.0",
     "gulp-load-plugins": "^0.4.0",
     "gulp-mocha": "~0.4.1",
@@ -39,6 +40,7 @@
     "jshint-stylish": "~0.1.5",
     "marked": "~0.3.1",
     "minimist": "~0.0.7",
-    "stream-combiner": "~0.0.4"
+    "vinyl": "^0.2.3",
+    "watchify": "^0.6.1"
   }
 }

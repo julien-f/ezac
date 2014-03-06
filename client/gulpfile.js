@@ -40,28 +40,62 @@ var BOWER_DIR = (function () {
 })();
 
 var PRODUCTION = options.production;
-var LIVERELOAD = 46417;
+var LIVERELOAD = 35827;
 
 //--------------------------------------------------------------------
 
-// var browserify = function () {
-// 	if (PRODUCTION)
-// 	{
-// 		browserify = require('gulp-browserify');
-// 		return browserify.apply(this, arguments);
-// 	}
+// Browserify plugin for gulp.js which uses watchify in development
+// mode.
+var browserify = function (path, opts) {
+	var bundler = require(PRODUCTION ? 'browserify' : 'watchify')(path);
+	var file = new (require('vinyl'))({
+		base: opts.base,
+		path: require('path').resolve(path),
+	});
+	var stream = new require('stream').Readable({
+		objectMode: true,
+	});
 
-// 	browfunction (options) {
-// 	var watchify = new require('watchify')();
+	if (opts.transform)
+	{
+		[].concat(opts.transform).forEach(function (transform) {
+			bundler.transform(transform);
+		});
+	}
 
-// 	return require('through2').obj(function (file, enc, done) {
+	var bundle = bundler.bundle.bind(bundler, function (error, bundle) {
+		if (error)
+		{
+			console.warn(error);
+			return;
+		}
 
-// 	});
-// };
+		file.contents = new Buffer(bundle);
+		stream.push(file);
 
-var combine = function () {
-	combine = require('stream-combiner');
-	return combine.apply(this, arguments);
+		// EOF is sent only in production.
+		if (PRODUCTION)
+		{
+			stream.push(null);
+		}
+	});
+
+	stream._read = function () {
+		// Ignore subsequent reads.
+		stream._read = function () {};
+
+		// Register for updates (does nothing if we are not using
+		// Browserify, in production).
+		bundler.on('update', bundle);
+
+		bundle();
+	};
+	return stream;
+};
+
+var pipe = function () {
+	pipe = require('event-stream').pipe;
+	return pipe.apply(this, arguments);
 };
 
 var concat = function () {
@@ -70,12 +104,12 @@ var concat = function () {
 };
 
 var noop = function () {
-	var stream = new require('stream').PassThrough({
-		objectMode: true
-	});
+	var PassThrough = require('stream').PassThrough;
 
 	noop = function () {
-		return stream;
+		return new PassThrough({
+			objectMode: true
+		});
 	};
 
 	return noop.apply(this, arguments);
@@ -116,7 +150,7 @@ var dest = (function () {
 	}
 
 	return function () {
-		return combine(
+		return pipe(
 			gulp.dest(DIST_DIR),
 			$.livereload(LIVERELOAD)
 		);
@@ -135,17 +169,16 @@ gulp.task('build-pages', function () {
 	;
 });
 
-// TODO: Use watchify (https://github.com/substack/watchify).
 gulp.task('build-scripts', ['install-bower-components'], function () {
-	return src('app.js')
-		.pipe($.browserify({
-			debug: !PRODUCTION,
-			transform: [
-				'browserify-plain-jade',
-				'debowerify',
-				'deamdify',
-			],
-		}))
+	return browserify(SRC_DIR +'/app.js', {
+		base: SRC_DIR,
+		debug: !PRODUCTION,
+		transform: [
+			'browserify-plain-jade',
+			'debowerify',
+			'deamdify',
+		],
+	})
 		.pipe(gIf(PRODUCTION, $.uglify()))
 		.pipe(dest())
 	;
