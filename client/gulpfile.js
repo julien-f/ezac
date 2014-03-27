@@ -122,8 +122,9 @@ var src = (function () {
 	if (PRODUCTION)
 	{
 		return function (pattern) {
-			return gulp.src(SRC_DIR +'/'+ pattern, {
+			return gulp.src(pattern, {
 				base: SRC_DIR,
+				cwd: SRC_DIR,
 			});
 		};
 	}
@@ -131,12 +132,16 @@ var src = (function () {
 	// gulp-plumber prevents streams from disconnecting when errors.
 	// See: https://gist.github.com/floatdrop/8269868#file-thoughts-md
 	return function (pattern) {
-		return $.watch({
-			glob: SRC_DIR +'/'+ pattern,
+		return gulp.src(pattern, {
 			base: SRC_DIR,
-		}).pipe($.plumber({
-			errorHandler: console.error,
-		}));
+			cwd: SRC_DIR,
+		}).pipe(
+			$.watch()
+		).pipe(
+			$.plumber({
+				errorHandler: console.error,
+			})
+		);
 	};
 })();
 
