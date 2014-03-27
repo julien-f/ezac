@@ -4,15 +4,6 @@
 
 //====================================================================
 
-// Helpers to deal with promises with generators.
-var coroutine, spawn;
-(function () {
-	var bluebird = require('bluebird');
-
-	coroutine = bluebird.coroutine;
-	spawn = bluebird.spawn;
-})();
-
 var each;
 (function () {
 	var lodash = require('lodash');
@@ -26,15 +17,17 @@ var ecstatic = require('ecstatic');
 var fdb = require('final-db');
 
 // Options parsing.
-var optimist = require('optimist');
+var yargs = require('yargs');
+
+var Promise = require('bluebird');
 
 // HTTP server with REST facilities.
 var restify = require('restify');
 
 //====================================================================
 
-(function main() {
-	var options = optimist
+Promise.coroutine(function main() {
+	var options = yargs
 		.usage('Usage: $0 [<option>...]')
 		.options({
 			h: {

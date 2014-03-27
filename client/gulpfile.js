@@ -93,11 +93,12 @@ var browserify = function (path, opts) {
 	return stream;
 };
 
+// `event-stream` is required only when necessary to maximize
+// `performance.
 var pipe = function () {
 	pipe = require('event-stream').pipe;
 	return pipe.apply(this, arguments);
 };
-
 var concat = function () {
 	concat = require('event-stream').concat;
 	return concat.apply(this, arguments);
@@ -115,10 +116,8 @@ var noop = function () {
 	return noop.apply(this, arguments);
 };
 
-var gIf = function (cond, then, otherwise) {
-	return cond ? then : otherwise || noop();
-};
-
+// Similar to `gulp.src()` but the pattern is relative to `SRC_DIR`
+// and files are automatically watched when not in production mode.
 var src = (function () {
 	if (PRODUCTION)
 	{
@@ -141,6 +140,9 @@ var src = (function () {
 	};
 })();
 
+// Similar to `gulp.dst()` but the output directory is always
+// `DIST_DIR` and files are automatically live-reloaded when not in
+// production mode.
 var dest = (function () {
 	if (PRODUCTION)
 	{
@@ -162,9 +164,7 @@ var dest = (function () {
 gulp.task('build-pages', function () {
 	return src('index.jade')
 		.pipe($.jade())
-		.pipe(gIf(!PRODUCTION, $.embedlr({
-			port: LIVERELOAD,
-		})))
+		.pipe(PRODUCTION ? noop() : $.embedlr({ port: LIVERELOAD }))
 		.pipe(dest())
 	;
 });
@@ -179,7 +179,7 @@ gulp.task('build-scripts', ['install-bower-components'], function () {
 			'deamdify',
 		],
 	})
-		.pipe(gIf(PRODUCTION, $.uglify()))
+		.pipe(PRODUCTION ? $.uglify() : noop())
 		.pipe(dest())
 	;
 });
@@ -192,7 +192,7 @@ gulp.task('build-styles', ['install-bower-components'], function () {
 				BOWER_DIR +'/strapless/less',
 			],
 		}))
-		.pipe(gIf(PRODUCTION, $.csso()))
+		.pipe(PRODUCTION ? $.csso() : noop())
 		.pipe(dest())
 	;
 });
