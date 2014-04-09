@@ -17,6 +17,6 @@ module.exports = ['$scope', '$stateParams', 'events',
 			$scope.active = event.active;
 			$scope.description = event.description && marked(event.description);
 			$scope.name = event.name;
-		});
+		}, true);
 	}
 ];

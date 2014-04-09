@@ -247,7 +247,7 @@ gulp.task('distclean', ['clean'], function () {
 });
 
 gulp.task('test', function () {
-	return gulp.src(SRC_DIR +'/**/*.spec.js')
+	return gulp.src(SRC_DIR +'/**/*.spec.js', { read: false })
 		.pipe($.mocha({
 			reporter: 'spec'
 		}))
