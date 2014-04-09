@@ -26,7 +26,7 @@ var restify = require('restify');
 
 //====================================================================
 
-Promise.coroutine(function main() {
+Promise.coroutine(function *main() {
 	var options = yargs
 		.usage('Usage: $0 [<option>...]')
 		.options({
