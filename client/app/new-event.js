@@ -14,7 +14,7 @@ module.exports = ['$scope', '$state', 'debounce', 'events',
 			var desc = $scope.description;
 			$scope.descriptionPreview = desc ? marked(desc) : '';
 		};
-		$scope.$watch('description', debounce(updateDescriptionPreview, 250));
+		$scope.$watch('description', debounce(updateDescriptionPreview, 100));
 
 		$scope.createEvent = function (name, description, active) {
 			events.create({

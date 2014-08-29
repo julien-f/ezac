@@ -1,32 +1,20 @@
-#!/usr/bin/env node
+#!/usr/bin/env node --harmony true
 
 'use strict';
 
 //====================================================================
 
-var each;
-(function () {
-	var lodash = require('lodash');
-	each = lodash.each;
-})();
-
-// Static file serving.
+var coroutine = require('bluebird').coroutine;
 var ecstatic = require('ecstatic');
-
-// File system based noSQL database.
+var eventToPromise = require('event-to-promise');
 var fdb = require('final-db');
-
-// Options parsing.
-var yargs = require('yargs');
-
-var Promise = require('bluebird');
-
-// HTTP server with REST facilities.
+var forEach = require('lodash.foreach');
 var restify = require('restify');
+var yargs = require('yargs');
 
 //====================================================================
 
-Promise.coroutine(function *main() {
+exports = module.exports = coroutine(function *main() {
 	var options = yargs
 		.usage('Usage: $0 [<option>...]')
 		.options({
@@ -53,7 +41,7 @@ Promise.coroutine(function *main() {
 			}
 
 			var port = options.port;
-			if (!((0 < port) && (port < 65536) && (0 === port % 1)))
+			if (!((0 <= port) && (port < 65536) && (0 === port % 1)))
 			{
 				throw '--port should be an integer between 0 and 65535';
 			}
@@ -64,13 +52,12 @@ Promise.coroutine(function *main() {
 	if (options.version)
 	{
 		var pkg = require(__dirname +'/package');
-		console.log('Ezac version '+ pkg.version);
-		return;
+		return 'Ezac version '+ pkg.version;
 	}
 
 	// Opens the database.
 	var db = Object.create(null);
-	each([
+	forEach([
 		'bookings',
 		'events',
 		'offers',
@@ -126,7 +113,7 @@ Promise.coroutine(function *main() {
 		.use(restify.conditionalRequest())
 	;
 
-	each(db, function (collection, name) {
+	forEach(db, function (collection, name) {
 		// Gets all items in the collection.
 		server.get('/'+ name, function (req, res, next) {
 			collection.find().then(function (records) {
@@ -182,4 +169,12 @@ Promise.coroutine(function *main() {
 	server.get(/.*/, ecstatic({
 		root: __dirname +'/../client/dist/',
 	}));
-})();
+
+  return eventToPromise(server, 'close');
+});
+
+//====================================================================
+
+if (!module.parent) {
+  require('exec-promise')(exports);
+}

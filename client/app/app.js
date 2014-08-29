@@ -7,9 +7,9 @@
 require('angular');
 
 require('angular-resource');
-require('angular-ui-bootstrap-bower');
+require('angular-bootstrap');
 require('angular-ui-router');
-require('angular-ui-utils/ui-utils');
+require('angular-ui-utils');
 
 //====================================================================
 
