@@ -1,4 +1,5 @@
-#!/usr/bin/env node --harmony true
+#!/bin/sh
+':' //; exec node --harmony "$0" "$@"
 
 'use strict';
 

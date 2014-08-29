@@ -6,7 +6,7 @@
     "ezac": "index.js"
   },
   "scripts": {
-    "start": "node index.js",
+    "start": "node --harmony index.js",
     "test": "gulp test"
   },
   "repository": {
